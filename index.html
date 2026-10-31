@@ -445,9 +445,11 @@ async function save(key,val){
             const {error}=await sb.from(TBL).upsert({key,value:val});
             if(error) throw error;
             return true;
-        }catch(e){}
+        }catch(e){
+            console.warn("[save] Supabase falló para",key,"→ usando localStorage. Error:",e?.message||e);
+        }
     }
-    try{ localStorage.setItem("saltadeco_"+key,JSON.stringify(val)); return true; }
+        try{ localStorage.setItem("saltadeco_"+key,JSON.stringify(val)); return true; }
     catch(e){ return false; }
 }
 async function upImg(d){
@@ -741,9 +743,13 @@ const logged=()=>{try{return localStorage.getItem(LS_S)==="1"}catch(e){return fa
 
 function openAdmin(){
     mo("am");
-    $("loginForm").style.display=logged()?"none":"";
-    $("panel").style.display=logged()?"":"none";
-    if(logged()) showCats();
+    const isIn = logged();
+    $("loginForm").style.display = isIn ? "none" : "";
+    $("panel").style.display = isIn ? "" : "none";
+    if (isIn) {
+        // Forzar re-render SIEMPRE al abrir
+        showCats();
+    }
 }
 function showCats(){
     adminCat=null;
@@ -849,10 +855,12 @@ async function saveProd(ev){
         const p=prods.find(x=>x.id===editId);
         Object.assign(p,{title:t,desc:$("pd").value.trim(),price:pr,img:f,category:cat});
     }else{
-        prods.push({
-            id:uid(),category:cat,title:t,desc:$("pd").value.trim(),price:pr,img:f,
-            sort:sorted(cat).reduce((m,x)=>Math.max(m,x.sort||0),-1)+1
-        });
+        const existingSorts = prods.filter(p=>p.category===cat).map(p=>p.sort||0);
+const nextSort = existingSorts.length ? Math.max(...existingSorts)+1 : 0;
+prods.push({
+    id:uid(),category:cat,title:t,desc:$("pd").value.trim(),price:pr,img:f,
+    sort: nextSort
+});
     }
     const ok=await save(K.p,prods);
     b.disabled=false; b.textContent="Guardar";
