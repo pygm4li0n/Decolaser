@@ -61,13 +61,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .btn.g{background:transparent;color:var(--sage-d);border-color:var(--line);width:100%}
 .btn.g:hover{background:var(--soft);border-color:var(--sage)}
 .btn:disabled{opacity:.45;pointer-events:none}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px);width:100%;max-width:1400px;margin:0 auto}
-.tile{position:relative;aspect-ratio:4/3;border-radius:16px;background:var(--soft) center/cover;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:22px;color:#fff;text-align:center;border:2px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;padding:clamp(12px,2vw,24px) clamp(12px,2vw,24px);width:100%;margin:0 auto}
+.tile{position:relative;aspect-ratio:4/3;border-radius:16px;background:var(--soft) center/cover;overflow:hidden;border:2px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s;display:block}
 .tile:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
-.tile span{display:block;font:700 1.5rem/1.1 var(--d)}
-.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(55,75,50,.78))}
-.tile div{position:relative;z-index:1}
-.tile i{display:block;font:500 .68rem var(--s);letter-spacing:.2em;margin-top:6px;font-style:normal;color:var(--gold-l)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 40%, rgba(40,55,36,.3) 100%);pointer-events:none;transition:.3s}
+.tile:hover::after{background:linear-gradient(180deg, transparent 40%, rgba(40,55,36,.6) 100%)}
 .tile.placeholder::after{display:none}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);padding:clamp(56px,9vw,110px) clamp(16px,4vw,48px);align-items:center}
 .about h2{font:800 clamp(2.2rem,5vw,3.8rem)/1.05 var(--d);color:var(--sage-d)}
@@ -98,7 +96,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
         display:grid;
         grid-template-rows:repeat(2, 1fr);
         grid-auto-flow:column;
-        grid-auto-columns:44vw;
+        grid-auto-columns:calc(50% - 6px);
         gap:12px;
         overflow-x:auto;
         scroll-snap-type:x mandatory;
@@ -142,7 +140,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .card .pr{font:600 1rem var(--s);color:var(--gold);margin:8px 16px 16px}
 .card .pr span{font-size:.65rem;letter-spacing:.14em;color:var(--mut);margin-left:4px}
 .empty{grid-column:1/-1;padding:30px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--mut);font-size:.85rem;text-transform:uppercase}
-footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-top:70px;padding:22px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:18px 32px;flex-wrap:wrap}
+footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-top:30px;padding:22px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:18px 32px;flex-wrap:wrap}
 .foot-left{display:flex;flex-direction:column;gap:3px}
 .foot-right{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 .foot-logo{font:800 1.15rem var(--d);letter-spacing:.03em;color:#fffbe9;display:inline-flex;align-items:center;gap:9px}
@@ -656,15 +654,13 @@ function renderNav(){
 function renderStore(){
     // 1. Placeholders para Categorías (si no tienen foto, usan un lindo gradiente)
       // 1. Placeholders para Categorías (idénticos a los de productos si no tienen foto)
-    $("tiles").innerHTML=cats.map(c=>{
+      $("tiles").innerHTML=cats.map(c=>{
         if(!c.img) {
-            return `<a class="tile placeholder" href="#cat-${esc(c.id)}" style="background:var(--soft); border:2px dashed var(--line); display:flex; flex-direction:column; align-items:center; justify-content:center;">
-                <div style="font-size:2.8rem; margin-bottom:10px;">📦</div>
-                <span style="font:700 1.3rem var(--d); color:var(--sage-d); text-align:center; padding:0 10px; line-height:1.1;">${esc(c.name)}</span>
-                <i style="font:500 .7rem var(--s); letter-spacing:.1em; color:var(--mut); margin-top:10px;">PRÓXIMAMENTE</i>
+            return `<a class="tile placeholder" href="#cat-${esc(c.id)}" style="background:var(--soft); border:2px dashed var(--line); display:flex; align-items:center; justify-content:center; padding:0;">
+                <div style="font-size:2.8rem;">📦</div>
             </a>`;
         }
-        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
+        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img}')"></a>`;
     }).join("");
 
         // 2. Placeholder estilo "decoración": usa el mismo SVG decorativo que los productos reales
