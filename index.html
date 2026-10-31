@@ -261,13 +261,8 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
     <span class="logo-main">SALTA<br>DECOLASER</span>
     <span class="logo-sub">Corte &amp; Grabado Láser</span>
   </a>
-  <nav class="nav">
-    <a href="#hero" class="active">Inicio</a>
-    <a href="#cat-decoracion">Decoración para tortas</a>
-       <a href="#cat-eventos">Eventos</a>
-    <a href="#cat-cuadros">Cuadros y placas</a>
-    <a href="#cat-grabados">Grabados</a>
-    <a href="#colecciones">Ofertas</a>
+    <nav class="nav" id="mainNav">
+    <!-- Los enlaces se generan automáticamente con JS -->
   </nav>
   <div class="header-tools">
     <button class="icon-btn" aria-label="Buscar">
@@ -644,6 +639,15 @@ function filterList(list){
     else if(storeSort==="name") out.sort((a,b)=>a.title.localeCompare(b.title,"es"));
     return out;
 }
+function renderNav(){
+    const nav = document.getElementById("mainNav");
+    if(!nav) return;
+    let html = `<a href="#hero" class="active">Inicio</a>`;
+    html += cats.map(c => `<a href="#cat-${esc(c.id)}">${esc(c.name)}</a>`).join("");
+    html += `<a href="#colecciones">Ofertas</a>`;
+    nav.innerHTML = html;
+}
+
 function renderStore(){
        $("tiles").innerHTML=cats.map(c=>{
         return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img ? esc(c.img) : ""}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
@@ -885,8 +889,8 @@ async function adminClick(e){
         if(!ok) return;
         cats=cats.filter(x=>x.id!==d.dc);
         prods=prods.filter(p=>p.category!==d.dc);
-        await Promise.all([save(K.c,cats),save(K.p,prods)]);
-        renderCats();renderStore();renderCart();
+             await Promise.all([save(K.c,cats),save(K.p,prods)]);
+        renderCats();renderStore();renderCart();renderNav(); // <-- Agregamos renderNav()
         toast("Categoria eliminada");
     }
     else if(d.up||d.dn){
@@ -1024,9 +1028,8 @@ function bind(){
         $("catForm").reset(); $("cPrev").style.display="none";
         $("cUploadText").textContent="Subir foto"; $("csave").textContent="Crear"; $("ccancel").style.display="none";
         b.disabled=false;
-              renderCats();renderStore();
-        toast(wasEdit?"Categoria actualizada":"Categoria creada"); // <-- USAMOS LA VARIABLE
-    };
+                           renderCats();renderStore();renderNav(); // <-- Agregamos renderNav()
+        toast(wasEdit?"Categoria actualizada":"Categoria creada");    };
     
     $("ccancel").onclick=()=>{
         editCatId=null; catImg="";
@@ -1127,9 +1130,10 @@ function bind(){
     }else if(h && typeof h==="object"){
         heroData={img:typeof h.img==="string"?h.img:"",x:typeof h.x==="number"?h.x:50,y:typeof h.y==="number"?h.y:50};
     }
-      bind();
+           bind();
     applyHero();
     updateHeroPrevAspect();
+    renderNav(); // <-- Agregado para dibujar el menú
     renderStore();
     renderCart();
     
