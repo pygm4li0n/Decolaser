@@ -52,7 +52,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .btn.g{background:transparent;color:var(--sage-d);border-color:var(--line);width:100%}
 .btn.g:hover{background:var(--soft);border-color:var(--sage)}
 .btn:disabled{opacity:.45;pointer-events:none}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px);width:100%;max-width:1400px;margin:0 auto}
 .tile{position:relative;aspect-ratio:4/3;border-radius:16px;background:var(--soft) center/cover;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:22px;color:#fff;text-align:center;border:2px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s}
 .tile:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
 .tile span{display:block;font:700 1.5rem/1.1 var(--d)}
@@ -79,6 +79,24 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .store-tools input{flex:1;min-width:180px}
 .store-tools select{width:auto;min-width:150px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:26px 18px}
+
+/* --- SCROLL LATERAL EN MOBILE --- */
+@media(max-width:768px){
+    .grid{
+        display:grid;
+        grid-template-rows:repeat(2,auto);
+        grid-auto-flow:column;
+        grid-auto-columns:42vw;
+        gap:12px;
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        padding-bottom:15px;
+        -webkit-overflow-scrolling:touch;
+        justify-content:start; 
+    }
+    .grid::-webkit-scrollbar{display:none}
+    .grid .card{scroll-snap-align:start}
+}
 .card{cursor:pointer;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.3s}
 .card:hover{box-shadow:var(--shadow-lg);border-color:var(--gold);transform:translateY(-5px)}
 .cm{position:relative;aspect-ratio:1;background:var(--soft);overflow:hidden}
@@ -200,7 +218,7 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
 #cm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #cm .btn.k{background:#b5442f;border-color:#b5442f}
 @media(max-width:900px){.nav{display:none}header{display:flex;justify-content:space-between}.about,.lb{grid-template-columns:1fr}#am .ag{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){#cm-actions{grid-template-columns:1fr}.tiles{grid-template-columns:1fr;gap:12px}footer{flex-direction:column;align-items:flex-start;gap:12px}.foot-right{gap:16px}.foot-social{gap:16px}}
+@media(max-width:560px){#cm-actions{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr;gap:12px}.tile span{font-size:1.1rem}.tile{padding:15px}footer{flex-direction:column;align-items:flex-start;gap:12px}.foot-right{gap:16px}.foot-social{gap:16px}}
 
 /* --- EPIC LOADER CSS --- */
 #epic-loader{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at center,#2a3d26 0%,#141c12 100%);display:flex;justify-content:center;align-items:center;transition:opacity .8s ease,visibility .8s;overflow:hidden}
@@ -231,6 +249,16 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
 @keyframes elegantFadeIn{from{opacity:0;transform:translateY(20px) scale(.95);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes sweepBar{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+/* --- AJUSTES PARA MOBILE --- */
+@media(max-width:560px){
+    #epic-loader .logo-top{font-size:2.8rem}
+    #epic-loader .logo-bottom{font-size:3.5rem}
+    #epic-loader .tagline{font-size:1.4rem}
+    #epic-loader .flower-svg{width:30px;height:30px;margin-right:10px}
+    #epic-loader .sparkles-svg{width:20px;height:20px;margin-left:10px}
+    #epic-loader .loading-bar{margin-top:30px;width:150px}
+}
 </style>
 </head>
 <body>
@@ -593,15 +621,22 @@ function renderNav(){
 }
 
 function renderStore(){
-       $("tiles").innerHTML=cats.map(c=>{
-        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img ? esc(c.img) : ""}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
+    // 1. Placeholders para Categorías (si no tienen foto, usan un lindo gradiente)
+    $("tiles").innerHTML=cats.map(c=>{
+        const bgStyle = c.img ? `background-image:url('${c.img}')` : `background:linear-gradient(135deg,var(--soft),var(--line))`;
+        return `<a class="tile" href="#cat-${esc(c.id)}" style="${bgStyle}"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
     }).join("");
+
+    // 2. Placeholders para Productos (si está vacío, mostramos 4 tarjetas dummy)
+    const dummyCard = `<article class="card" style="cursor:default"><div class="cm" style="background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--mut)">📦</div><h3>Próximamente</h3><p>Nuevos productos en camino</p><div class="pr">$---</div></article>`;
+    
     $("store").innerHTML=cats.map(c=>{
         const l=filterList(sorted(c.id));
         const shown=storeShown[c.id]||PAGE_SIZE;
         const slice=l.slice(0,shown);
         const more=l.length>slice.length;
-        return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="grid">${slice.length?slice.map(productCard).join(""):'<div class="empty">Proximamente</div>'}</div></section>`;
+        const gridContent = slice.length ? slice.map(productCard).join("") : dummyCard+dummyCard+dummyCard+dummyCard;
+        return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="grid">${gridContent}</div></section>`;
     }).join("");
 }
 
