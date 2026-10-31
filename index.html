@@ -11,12 +11,12 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f7f1df;--soft:#ebe1c8;--card:#fffdf7;--ink:#33482e;--txt:#525b4c;--mut:#7c8270;--line:#dcd1b2;--sage:#5d8255;--sage-d:#3f5c38;--gold:#d9a72c;--gold-l:#f3dd98;--d:'Playfair Display',Georgia,serif;--s:'Jost',Arial,sans-serif;--shadow:0 10px 30px rgba(63,92,56,.12);--shadow-lg:0 18px 44px rgba(63,92,56,.18);--ease:cubic-bezier(.22,1,.36,1)}
 html{scroll-behavior:smooth}
-body{font:400 15.5px/1.6 var(--s);color:var(--txt);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font:400 15.5px/1.6 var(--s);color:var(--txt);background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,textarea,select{font:inherit;width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);outline:0;border-radius:10px}
 input:focus,textarea:focus,select:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(107,138,99,.18)}
 .bar{background:var(--sage);color:#fffbe9;text-align:center;font:500 .76rem var(--s);letter-spacing:.18em;text-transform:uppercase;padding:9px 12px}
-header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px clamp(16px,4vw,48px);gap:20px}
+header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px clamp(16px,4vw,48px);gap:20px}
 .logo{justify-self:start;display:flex;flex-direction:column;align-items:flex-start;text-decoration:none;color:var(--sage-d);flex-shrink:0}
 .logo-main{font:800 1.25rem/1 var(--d);letter-spacing:.02em;text-align:left}
 .logo-sub{font:500 .62rem var(--s);letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:4px}
@@ -129,7 +129,7 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
 .tot span:last-child{font-size:1.5rem;color:var(--gold)}
 .modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(50,64,46,.55);backdrop-filter:blur(4px)}
 .modal.on{display:flex}
-.mb{background:var(--bg);width:min(94vw,520px);max-height:92dvh;overflow:auto;padding:28px;position:relative;border-radius:22px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(40,55,36,.25)}
+.mb{background:#fffdf7;width:min(94vw,520px);max-height:92dvh;overflow:auto;padding:28px;position:relative;border-radius:22px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(40,55,36,.25)}
 .mb.w{width:min(96vw,940px)}
 .mb h3{font:700 1.7rem var(--d);color:var(--sage-d);margin-bottom:14px}
 .x{position:absolute;top:12px;right:16px;font-size:1.05rem;color:var(--mut)}.x:hover{color:var(--ink)}
@@ -172,14 +172,20 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
 .acat-new input{flex:1;min-width:150px}
 .acat-new .btn.k{width:auto}
 .acat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.acat{display:flex;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;transition:.2s}
-.acat:hover{border-color:var(--gold)}
-.acat-open{flex:1;text-align:left;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
-.acat-open strong{font:700 1.1rem var(--d);color:var(--ink)}
-.acat-open small{font-size:.7rem;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
-.acat-open em{font-style:normal;font-size:.88rem;color:var(--gold);font-weight:600}
-.acat-x{width:36px;display:grid;place-items:center;color:var(--mut);border-left:1px solid var(--line)}
-.acat-x:hover{background:#f6dcd4;color:#a3301f}
+.acat{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;transition:.25s}
+.acat:hover{border-color:var(--gold);box-shadow:0 12px 24px rgba(63,92,56,.08);transform:translateY(-3px)}
+.acat-open{flex:1;text-align:left;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.acat-img{width:100%;height:110px;border-radius:10px;background-size:cover;background-position:center;border:1px solid var(--line);transition:.3s;background-color:var(--soft)}
+.acat:hover .acat-img{filter:brightness(1.05)}
+.acat-info{display:flex;flex-direction:column;gap:2px}
+.acat-info strong{font:700 1.15rem var(--d);color:var(--sage-d)}
+.acat-info small{font-size:.7rem;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+.acat-info em{font-style:normal;font-size:.88rem;color:var(--gold);font-weight:600}
+.acat-actions{display:flex;border-top:1px solid var(--line)}
+.acat-x{flex:1;height:42px;display:grid;place-items:center;color:var(--mut);background:var(--bg);transition:.2s;font-size:1.1rem}
+.acat-x:first-child{border-right:1px solid var(--line)}
+.acat-x[data-ec]:hover{background:var(--soft);color:var(--sage-d)}
+.acat-x[data-dc]:hover{background:#f6dcd4;color:#a3301f}
 #am .ag{display:grid;grid-template-columns:330px 1fr;gap:22px;align-items:start}
 .upload{display:flex;align-items:center;justify-content:center;padding:14px;border:1.5px dashed var(--sage);border-radius:12px;text-align:center;font:500 .72rem var(--s);letter-spacing:.14em;text-transform:uppercase;color:var(--sage-d);cursor:pointer;transition:.2s}
 .upload:hover,.upload.has{background:rgba(107,138,99,.1)}
@@ -644,7 +650,6 @@ function renderNav(){
     if(!nav) return;
     let html = `<a href="#hero" class="active">Inicio</a>`;
     html += cats.map(c => `<a href="#cat-${esc(c.id)}">${esc(c.name)}</a>`).join("");
-    html += `<a href="#colecciones">Ofertas</a>`;
     nav.innerHTML = html;
 }
 
@@ -752,9 +757,23 @@ function showItems(cat){
     resetForm();
 }
 function renderCats(){
-      $("catList").innerHTML=cats.map(c=>{
+    $("catList").innerHTML=cats.map(c=>{
         const n=prods.filter(p=>p.category===c.id).length;
-        return `<div class="acat"><button type="button" class="acat-open" data-vc="${esc(c.id)}"><strong>${esc(c.name)}</strong><small>${esc(c.id)}</small><em>${n} producto${n===1?"":"s"}</em></button><button type="button" class="acat-x" data-ec="${esc(c.id)}" style="color:var(--sage-d); font-size:1.1rem; border-left:1px solid var(--line)">✎</button><button type="button" class="acat-x" data-dc="${esc(c.id)}">X</button></div>`;
+        const imgStyle = c.img ? `background-image:url('${esc(c.img)}')` : '';
+        return `<div class="acat">
+            <button type="button" class="acat-open" data-vc="${esc(c.id)}">
+                <div class="acat-img" style="${imgStyle}"></div>
+                <div class="acat-info">
+                    <strong>${esc(c.name)}</strong>
+                    <small>${esc(c.id)}</small>
+                    <em>${n} producto${n===1?"":"s"}</em>
+                </div>
+            </button>
+            <div class="acat-actions">
+                <button type="button" class="acat-x" data-ec="${esc(c.id)}" title="Editar">✎</button>
+                <button type="button" class="acat-x" data-dc="${esc(c.id)}" title="Eliminar">✕</button>
+            </div>
+        </div>`;
     }).join("");
 }
 let adminQuery="";
