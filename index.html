@@ -29,7 +29,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .icon-btn:hover{color:var(--gold)}
 .icon-btn svg{width:22px;height:22px}
 .cartbtn b{position:absolute;top:-4px;right:-6px;background:var(--sage-d);color:#fffbe9;border-radius:50%;min-width:18px;height:18px;display:grid;place-items:center;font-size:.62rem;font-weight:600;border:2px solid var(--bg)}
-.hero{position:relative;min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,9vw,120px) 20px;overflow:hidden;background-color:var(--bg)}
+.hero{position:relative;min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(40px,5vw,60px) 20px;overflow:hidden;background-color:var(--bg)}
 .hero-bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;pointer-events:none;opacity:0;transition:opacity 1s ease}
 .hero-bg-layer.active{opacity:1}
 .hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;max-width:900px;transition:opacity 0.5s ease, visibility 0.5s ease}
@@ -40,6 +40,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 
 /* --- OCULTAR SLIDER EN MOBILE --- */
 @media(max-width:768px){
+    .hero { min-height:auto !important; padding:20px 16px 30px !important; }
     .hero-dots { display: none !important; }
     .hero-bg-layer:nth-child(2) { display: none !important; }
     .hero-bg-layer:nth-child(1) { opacity: 1 !important; }
@@ -666,16 +667,19 @@ function renderStore(){
         return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
     }).join("");
 
-    // 2. Placeholders para Productos (Muestra 5 en desktop, con el mismo diseño unificado)
-    const dummyCard = `<article class="card" style="cursor:default; border-style:dashed;"><div class="cm" style="background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:3rem;">📦</div><h3 style="color:var(--sage-d);text-align:center;margin-top:12px;">Próximamente</h3><p style="color:var(--mut);text-align:center;font-size:.85rem;">Nuevos productos en camino</p><div class="pr" style="text-align:center;color:var(--mut);">$---</div></article>`;
+        // 2. Placeholder estilo "decoración": usa el mismo SVG decorativo que los productos reales
+    const dummyCard = `<article class="card" style="cursor:default;"><div class="cm"><img src="${ph('Próximamente')}" alt="Próximamente" loading="lazy"></div><h3>Próximamente</h3><p>Nuevos productos en camino</p><div class="pr">$---<span>ARS</span></div></article>`;
     
     $("store").innerHTML=cats.map(c=>{
         const l=filterList(sorted(c.id));
         const shown=storeShown[c.id]||PAGE_SIZE;
         const slice=l.slice(0,shown);
         const more=l.length>slice.length;
-        // Forzamos Array(5) para mostrar exactamente 5 placeholders en la grilla
-        const gridContent = slice.length ? slice.map(productCard).join("") : Array(5).fill(dummyCard).join("");
+        // Pad hasta 5 mínimo (productos reales primero, luego placeholders)
+        const realCards = slice.map(productCard).join("");
+        const needed = Math.max(0, 5 - slice.length);
+        const placeholders = Array(needed).fill(dummyCard).join("");
+        const gridContent = realCards + placeholders;
         return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="scroll-wrapper"><button class="scroll-arrow left hidden" aria-label="Anterior" data-dir="-1">‹</button><div class="grid">${gridContent}</div><button class="scroll-arrow right hidden" aria-label="Siguiente" data-dir="1">›</button></div></section>`;
     }).join("");
 
