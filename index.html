@@ -385,6 +385,16 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
   </div>
 </div>
 
+<div class="modal" id="searchm">
+  <div class="mb">
+    <button class="x" data-close>Cerrar</button>
+    <h3>Buscar</h3>
+    <div class="f">
+      <input id="globalSearch" type="search" placeholder="¿Qué estás buscando?" style="font-size:1.1rem; padding:15px; border-radius:30px;">
+    </div>
+  </div>
+</div>
+
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -577,17 +587,13 @@ function renderStore(){
         const f=sorted(c.id)[0];
         return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${f?esc(f.img):""}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
     }).join("");
-    $("store").innerHTML=`<div class="sec" style="padding-bottom:0"><div class="store-tools"><input id="storeSearch" type="search" placeholder="Buscar producto..." value="${esc(storeQuery)}"><select id="storeSort"><option value="relevance">Orden original</option><option value="price-asc">Precio mayor</option><option value="price-desc">Precio menor</option><option value="name">Nombre A-Z</option></select></div></div>`+cats.map(c=>{
+    $("store").innerHTML=cats.map(c=>{
         const l=filterList(sorted(c.id));
         const shown=storeShown[c.id]||PAGE_SIZE;
         const slice=l.slice(0,shown);
         const more=l.length>slice.length;
         return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="grid">${slice.length?slice.map(productCard).join(""):'<div class="empty">Proximamente</div>'}</div></section>`;
     }).join("");
-    const si=$("storeSearch");
-    if(si){ si.oninput=e=>{storeQuery=e.target.value;storeShown={};renderStore();const f=$("storeSearch");if(f){f.focus();f.setSelectionRange(f.value.length,f.value.length);}}; }
-    const so=$("storeSort");
-    if(so){ so.value=storeSort; so.onchange=e=>{storeSort=e.target.value;renderStore();}; }
 }
 
 const toast=m=>{
@@ -875,16 +881,31 @@ function bind(){
     });
        $("adminTrigger").onclick=openAdmin;
     
-    // --- INICIO DEL CÓDIGO NUEVO ---
+        // --- INICIO DEL CÓDIGO NUEVO ---
     document.querySelector('.icon-btn[aria-label="Buscar"]').onclick = () => {
-        const input = document.getElementById('storeSearch');
-        if (input) {
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            input.focus();
-        } else {
-            document.getElementById('colecciones').scrollIntoView({ behavior: 'smooth' });
-        }
+        mo("searchm");
+        setTimeout(()=>{
+            const inp = document.getElementById("globalSearch");
+            if(inp) {
+                inp.value = storeQuery; 
+                inp.focus();
+            }
+        }, 100);
     };
+    
+    const gs = document.getElementById("globalSearch");
+    if(gs) {
+        gs.oninput = e => {
+            storeQuery = e.target.value;
+            storeShown = {};
+            renderStore();
+        };
+        gs.addEventListener('keydown', e => {
+            if(e.key === 'Enter') {
+                mc("searchm");
+            }
+        });
+    }
     // --- FIN DEL CÓDIGO NUEVO ---
 
     $("loginForm").onsubmit=e=>{
