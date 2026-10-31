@@ -29,16 +29,13 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .icon-btn:hover{color:var(--gold)}
 .icon-btn svg{width:22px;height:22px}
 .cartbtn b{position:absolute;top:-4px;right:-6px;background:var(--sage-d);color:#fffbe9;border-radius:50%;min-width:18px;height:18px;display:grid;place-items:center;font-size:.62rem;font-weight:600;border:2px solid var(--bg)}
-.hero{position:relative;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,9vw,120px) 20px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#fffaf0 0%,var(--bg) 70%);transition:background-color .4s}
-.hero::before{content:"";position:absolute;inset:0;background-image:var(--bg-url,none);background-size:cover;background-position:var(--bg-pos,50% 50%);opacity:0;transition:opacity .6s ease;z-index:0;pointer-events:none}
-.hero.has-photo{background-color:#2c3a29}
-.hero.has-photo::before{opacity:1}
-.hero.has-photo svg.deco{display:none}
-.hero .b1{top:-40px;left:-60px;width:min(46vw,420px)}
-.hero .b2{top:-30px;right:-50px;width:min(40vw,380px)}
-.hero .b3{bottom:-30px;left:-20px;width:min(40vw,360px)}
-.hero .b4{bottom:20px;right:20px;width:min(18vw,170px)}
-.hero>*:not(svg){position:relative;z-index:1}
+.hero{position:relative;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,9vw,120px) 20px;overflow:hidden;background-color:var(--bg)}
+.hero-bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;z-index:0;pointer-events:none}
+.hero-bg-layer.active{opacity:1}
+.hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;background:rgba(247, 241, 223, 0.9);padding:40px;border-radius:24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.6);box-shadow:0 20px 40px rgba(0,0,0,0.1);max-width:900px}
+.hero-dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:10}
+.hero-dots .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.6);cursor:pointer;transition:.3s;border:2px solid transparent;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+.hero-dots .dot.active{background:var(--sage-d);border-color:#fff;transform:scale(1.2)}
 .hero small{font:500 .78rem var(--s);letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .hero h1{font:800 clamp(3rem,10vw,7.4rem)/.96 var(--d);color:var(--sage-d);text-transform:uppercase;letter-spacing:-.01em}
 .hero h1 i{font-style:normal;color:var(--gold);font-size:.5em;vertical-align:middle;margin-left:8px;display:inline-block}
@@ -282,13 +279,20 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
 </header>
 
 <section class="hero" id="hero">
-  <svg class="deco b1" viewBox="0 0 300 300"><path d="M0 0 H290 Q300 120 200 190 Q110 250 0 270Z" fill="#7b9972" opacity=".92"/></svg>
-  <svg class="deco b2" viewBox="0 0 300 300"><path d="M60 0 H300 V220 Q200 300 120 200 Q40 100 60 0Z" fill="#d9b24a" opacity=".92"/></svg>
-  <svg class="deco b3" viewBox="0 0 300 300"><path d="M0 120 Q120 140 200 300 H0Z" fill="#7b9972" opacity=".85"/></svg>
-  <small>Decoración · Regalos · Souvenirs</small>
-  <h1>Salta<i>*</i><br>Decolaser</h1>
-  <p>Diseños delicados en madera y MDF con corte y grabado láser. Decoración, cuadros, souvenirs y regalos personalizados, hechos a tu medida.</p>
-  <div class="btns"><a href="#colecciones" class="btn">Ver colecciones</a><a href="#contacto" class="btn l">Pedir presupuesto</a></div>
+  <div class="hero-bg-layer active" style="background-image:url('https://i.postimg.cc/hj3RgwdJ/Banner-elegante-de-decoracion-artesanal-(1)-(1)-(1).png')"></div>
+  <div class="hero-bg-layer" style="background-image:url('https://i.postimg.cc/G2SnrNy8/Hacemos-realidad-tu-imaginacion.png')"></div>
+  
+  <div class="hero-content">
+    <small>Decoración · Regalos · Souvenirs</small>
+    <h1>Salta<i>*</i><br>Decolaser</h1>
+    <p>Diseños delicados en madera y MDF con corte y grabado láser. Decoración, cuadros, souvenirs y regalos personalizados, hechos a tu medida.</p>
+    <div class="btns"><a href="#colecciones" class="btn">Ver colecciones</a><a href="#contacto" class="btn l">Pedir presupuesto</a></div>
+  </div>
+
+  <div class="hero-dots">
+    <span class="dot active" data-slide="0"></span>
+    <span class="dot" data-slide="1"></span>
+  </div>
 </section>
 
 <div class="tiles" id="tiles"></div>
@@ -382,15 +386,6 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
       <h3>Administración</h3>
       <p class="admin-sub">Catálogo · categorías, productos y portada</p>
       <div id="viewCats">
-        <div class="hero-admin">
-          <h4>Foto de portada</h4>
-          <div class="hero-admin-row">
-            <input type="file" id="heroFile" accept="image/*" hidden>
-            <label for="heroFile" class="upload" id="heroUpload"><span id="heroUploadText">Subir foto</span></label>
-            <button type="button" class="btn g" id="heroClear">Quitar foto</button>
-          </div>
-          <div class="hero-admin-prev-wrap" id="heroPrevWrap"></div>
-        </div>
                 <form id="catForm" class="acat-new" style="flex-direction:column">
           <div style="display:flex; gap:8px; width:100%; flex-wrap:wrap">
             <input id="cn" placeholder="Nombre de categoría" required>
@@ -488,9 +483,6 @@ try{ if(window.supabase) sb=supabase.createClient(URL_,KEY); }catch(e){}
 let cats=[], prods=[], orders=[], cart=[];
 let editId=null, img="", adminCat=null, cur=null, tt;
 let editCatId=null, catImg="";
-let heroData={img:"",x:50,y:50};
-let heroLoadedUrl="";
-let heroDrag=null;
 let cmResolver=null;
 
 const $=i=>document.getElementById(i);
@@ -542,60 +534,6 @@ const defProds=()=>[
 
 const sorted=c=>prods.filter(p=>p.category===c).sort((a,b)=>(a.sort||0)-(b.sort||0));
 
-function heroLayer(url){
-    const safe=String(url).replace(/["\\]/g,"\\$&");
-    return "url(\""+safe+"\")";
-}
-function applyHero(){
-    const h=$("hero");
-    if(!h) return;
-    if(heroData.img){
-        const url=heroData.img;
-        const apply=()=>{
-            h.style.setProperty('--bg-url', heroLayer(url));
-            h.style.setProperty('--bg-pos', heroData.x+"% "+heroData.y+"%");
-            h.classList.add("has-photo");
-        };
-        if(heroLoadedUrl===url){ apply(); return; }
-        const im=new Image();
-        im.onload=()=>{ heroLoadedUrl=url; apply(); };
-        im.onerror=()=>{ heroLoadedUrl=url; apply(); };
-        im.src=url;
-    }else{
-        heroLoadedUrl="";
-        h.classList.remove("has-photo");
-        h.style.removeProperty('--bg-url');
-    }
-}
-function updateHeroPrevAspect(){
-    const wrap=$("heroPrevWrap");
-    if(!wrap) return;
-    const vw=window.innerWidth||1, vh=window.innerHeight||1;
-    let ratio=vw<700?4/5:Math.max(1.4,Math.min(2.4,vw/(vh*0.8)));
-    if(!Number.isFinite(ratio)) ratio=16/9;
-    wrap.style.aspectRatio=String(ratio);
-}
-function updateHeroPreview(){
-    const wrap=$("heroPrevWrap"), hint=$("heroDragHint"), btn=$("heroUpload"), txt=$("heroUploadText"), clr=$("heroClear");
-    if(!wrap) return;
-    if(heroData.img){
-        wrap.classList.add("has");
-        wrap.style.backgroundImage=heroLayer(heroData.img);
-        wrap.style.backgroundSize="cover";
-        wrap.style.backgroundPosition=heroData.x+"% "+heroData.y+"%";
-        if(hint) hint.classList.remove("hide");
-        if(btn) btn.classList.add("has");
-        if(txt) txt.textContent="Cambiar foto";
-        if(clr) clr.style.display="";
-    }else{
-        wrap.classList.remove("has");
-        wrap.style.backgroundImage="";
-        if(hint) hint.classList.add("hide");
-        if(btn) btn.classList.remove("has");
-        if(txt) txt.textContent="Subir foto";
-        if(clr) clr.style.display="none";
-    }
-}
 
 function loadCart(){
     try{
@@ -746,8 +684,6 @@ function showCats(){
     adminCat=null;
     $("viewCats").style.display="";
     $("viewItems").style.display="none";
-    updateHeroPrevAspect();
-    updateHeroPreview();
     renderCats();
 }
 function showItems(cat){
@@ -851,34 +787,6 @@ async function saveProd(ev){
     toast(wasEdit?"Producto actualizado":"Producto guardado");
 }
 
-function heroGetXY(e){
-    if(e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
-    return {x:e.clientX, y:e.clientY};
-}
-function heroStart(e){
-    if(!heroData.img) return;
-    const wrap=$("heroPrevWrap"); if(!wrap) return;
-    const p=heroGetXY(e);
-    heroDrag={px:p.x,py:p.y,sx:heroData.x,sy:heroData.y,w:wrap.clientWidth||1,h:wrap.clientHeight||1};
-    wrap.classList.add("dragging");
-    if(e.cancelable) e.preventDefault();
-}
-function heroMove(e){
-    if(!heroDrag) return;
-    const p=heroGetXY(e);
-    heroData.x=Math.max(0,Math.min(100,heroDrag.sx-((p.x-heroDrag.px)/heroDrag.w)*100));
-    heroData.y=Math.max(0,Math.min(100,heroDrag.sy-((p.y-heroDrag.py)/heroDrag.h)*100));
-    updateHeroPreview();
-    applyHero();
-    if(e.cancelable) e.preventDefault();
-}
-async function heroEnd(){
-    if(!heroDrag) return;
-    heroDrag=null;
-    const wrap=$("heroPrevWrap");
-    if(wrap) wrap.classList.remove("dragging");
-    await save(K.h,heroData);
-}
 
 async function adminClick(e){
     const t=e.target.closest("button"); if(!t) return;
@@ -1080,41 +988,37 @@ function bind(){
             $("pUploadText").textContent="Cambiar imagen";
         }).catch(x=>toast(x.message));
     };
-    $("heroFile").onchange=e=>{
-        const f=e.target.files[0];
-        if(!f) return;
-        toast("Procesando foto...");
-        compress(f,1800).then(async d=>{
-            $("heroUploadText").textContent="Subiendo...";
-            let url=d;
-            try{ url=await upImg(d); }
-            catch(err){ toast("Error subiendo foto"); updateHeroPreview(); return; }
-            heroData.img=url; heroData.x=50; heroData.y=50;
-            const ok=await save(K.h,heroData);
-            if(!ok){ toast("Error al guardar foto"); updateHeroPreview(); return; }
-            applyHero();updateHeroPreview();
-            toast("Foto actualizada");
-        }).catch(err=>{ toast(err.message||"Error"); updateHeroPreview(); });
+    // --- INICIO DEL SLIDER ---
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-bg-layer');
+    const dots = document.querySelectorAll('.hero-dots .dot');
+    let slideInt;
+
+    const goToSlide = (index) => {
+        if(!slides.length || !dots.length) return;
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
     };
-    $("heroClear").onclick=async()=>{
-        if(!heroData.img) return;
-        const ok=await confirmDo({title:"Quitar foto",message:"Quitar la foto de portada?",confirm:"Quitar"});
-        if(!ok) return;
-        heroData={img:"",x:50,y:50};
-        await save(K.h,heroData);
-        applyHero();updateHeroPreview();
-        toast("Foto quitada");
+
+    const startSlider = () => {
+        clearInterval(slideInt);
+        slideInt = setInterval(() => {
+            goToSlide((currentSlide + 1) % slides.length);
+        }, 5000);
     };
-    const wrap=$("heroPrevWrap");
-    if(wrap){
-        wrap.addEventListener("mousedown",heroStart);
-        wrap.addEventListener("touchstart",heroStart,{passive:false});
-        window.addEventListener("mousemove",heroMove);
-        window.addEventListener("touchmove",heroMove,{passive:false});
-        window.addEventListener("mouseup",heroEnd);
-        window.addEventListener("touchend",heroEnd);
-        window.addEventListener("touchcancel",heroEnd);
-    }
+
+    dots.forEach((dot, idx) => {
+        dot.onclick = () => {
+            goToSlide(idx);
+            startSlider();
+        };
+    });
+
+    startSlider();
+    // --- FIN DEL SLIDER ---
     $("cmOk").onclick=()=>closeConfirm(true);
     $("cmCancel").onclick=()=>closeConfirm(false);
     document.addEventListener("input",e=>{
@@ -1126,9 +1030,7 @@ function bind(){
             if(el){el.focus();el.setSelectionRange(pos,pos);}
         }
     });
-    window.addEventListener("resize",()=>{
-        if($("am").classList.contains("on")) updateHeroPrevAspect();
-    });
+
     document.onkeydown=e=>{
         if(e.key!=="Escape") return;
         if($("cm").classList.contains("on")){ closeConfirm(false); return; }
@@ -1140,19 +1042,13 @@ function bind(){
 
 (async function init(){
     cart=loadCart();
-    const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
+    const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null); 
     cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
     prods=Array.isArray(p)&&p.length?p:defProds();
     orders=Array.isArray(o)?o:[];
-    if(typeof h==="string"){
-        heroData={img:h,x:50,y:50};
-    }else if(h && typeof h==="object"){
-        heroData={img:typeof h.img==="string"?h.img:"",x:typeof h.x==="number"?h.x:50,y:typeof h.y==="number"?h.y:50};
-    }
-           bind();
-    applyHero();
-    updateHeroPrevAspect();
-    renderNav(); // <-- Agregado para dibujar el menú
+    
+    bind(); 
+    renderNav(); 
     renderStore();
     renderCart();
     
