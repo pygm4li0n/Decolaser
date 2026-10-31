@@ -749,14 +749,32 @@ async function send(){
 const logged=()=>{try{return localStorage.getItem(LS_S)==="1"}catch(e){return false}};
 
 function openAdmin(){
-    mo("am");
+    console.log("🔵 openAdmin() ejecutándose");
+    const am = document.getElementById("am");
+    if(!am){ console.error("❌ #am no existe"); return; }
+    
+    // FORZAR VISIBILIDAD con estilos inline (ignora CSS roto)
+    am.style.display = "flex";
+    am.style.position = "fixed";
+    am.style.inset = "0";
+    am.style.zIndex = "9999";
+    am.style.background = "rgba(50,64,46,.85)";
+    am.style.alignItems = "center";
+    am.style.justifyContent = "center";
+    am.style.padding = "16px";
+    am.classList.add("on");
+    document.body.style.overflow = "hidden";
+    
     const isIn = logged();
-    console.log("[admin] logged:", isIn, "cats:", cats.length, "prods:", prods.length);
-    $("loginForm").style.display = isIn ? "none" : "";
-    $("panel").style.display = isIn ? "" : "none";
-    if (isIn) {
-        try { showCats(); }
-        catch(err){ console.error("[admin] showCats falló:", err); }
+    console.log("👤 Logueado:", isIn, "| cats:", cats.length, "prods:", prods.length);
+    
+    const lf = document.getElementById("loginForm");
+    const pn = document.getElementById("panel");
+    if(lf) lf.style.display = isIn ? "none" : "";
+    if(pn) pn.style.display = isIn ? "" : "none";
+    
+    if(isIn){
+        try { showCats(); } catch(err){ console.error("showCats:", err); }
     }
 }
 function showCats(){
@@ -994,19 +1012,45 @@ function bind(){
     $("lbAdd").onclick=()=>{if(cur){add(cur.id);mc("lbm")}};
     $("oSend").onclick=send;
 
-    document.querySelectorAll("[data-close]").forEach(b=>{
-        b.onclick=()=>{b.closest(".modal").classList.remove("on");lock(0)};
-    });
-    document.querySelectorAll(".modal").forEach(m=>{
-        m.onclick=e=>{
-            if(e.target!==m) return;
-            if(m.id==="cm"){ closeConfirm(false); return; }
-            m.classList.remove("on");
-            lock(0);
-        };
-    });
+    // Función central para cerrar cualquier modal (limpia estilos inline también)
+function closeModalEl(el){
+    if(!el) return;
+    el.classList.remove("on");
+    el.style.display = "";           // ← limpia el display:flex inline
+    el.style.position = "";          // ← limpia el resto
+    el.style.inset = "";
+    el.style.zIndex = "";
+    el.style.background = "";
+    el.style.alignItems = "";
+    el.style.justifyContent = "";
+    el.style.padding = "";
+    lock(0);
+}
 
-    $("adminTrigger").onclick=openAdmin;
+document.querySelectorAll("[data-close]").forEach(b=>{
+    b.onclick=()=>closeModalEl(b.closest(".modal"));
+});
+
+document.querySelectorAll(".modal").forEach(m=>{
+    m.onclick=e=>{
+        if(e.target!==m) return;
+        if(m.id==="cm"){ closeConfirm(false); return; }
+        closeModalEl(m);
+    };
+});
+
+    // Admin: usar addEventListener para que NO se pise con otras asignaciones
+    const adminBtn = $("adminTrigger");
+    if(adminBtn){
+        adminBtn.addEventListener("click", function(e){
+            e.preventDefault();
+            console.log("🟢 ADMIN CLICKEADO");
+            openAdmin();
+        });
+        console.log("✅ Admin listener instalado");
+    } else {
+        console.error("❌ #adminTrigger NO EXISTE en el DOM");
+    }
 
     $("loginForm").onsubmit=e=>{
         e.preventDefault();
@@ -1108,51 +1152,54 @@ function bind(){
     });
 
     document.onkeydown=e=>{
-        if(e.key!=="Escape") return;
-        if($("cm").classList.contains("on")){ closeConfirm(false); return; }
-        closeCart();
-        document.querySelectorAll(".modal.on").forEach(m=>m.classList.remove("on"));
-        lock(0);
-    };
+    if(e.key!=="Escape") return;
+    if($("cm").classList.contains("on")){ closeConfirm(false); return; }
+    closeCart();
+    document.querySelectorAll(".modal").forEach(m=>{
+        m.classList.remove("on");
+        m.style.display = "";
+        m.style.position = "";
+        m.style.inset = "";
+        m.style.zIndex = "";
+        m.style.background = "";
+        m.style.alignItems = "";
+        m.style.justifyContent = "";
+        m.style.padding = "";
+    });
+    lock(0);
+};
 }
 
 /* INIT */
 (async function init(){
-    // 1. BIND PRIMERO — el Admin funciona sí o sí
-    try { bind(); } catch(err){ console.error("[init] bind falló:", err); }
+    // 1. BIND PRIMERO
+    try { bind(); } catch(err){ console.error("[init] bind:", err); }
 
-    // 2. Cargar datos
+    // 2. Datos
     cart = loadCart();
 
-    // 3. Cargar del backend/localStorage
     let c=null, p=null, o=null, h=null;
     try { c = await load(K.c,null); } catch(err){ console.warn("load cats:", err); }
     try { p = await load(K.p,null); } catch(err){ console.warn("load prods:", err); }
     try { o = await load(K.o,null); } catch(err){ console.warn("load orders:", err); }
     try { h = await load(K.h,null); } catch(err){ console.warn("load hero:", err); }
 
-    // 4. Asignar variables
-    cats   = Array.isArray(c) && c.length ? c : DEF.map(x=>({...x}));
-    prods  = Array.isArray(p) && p.length ? p : defProds();
+    cats   = (Array.isArray(c) && c.length) ? c : DEF.map(x=>({...x}));
+    prods  = (Array.isArray(p) && p.length) ? p : defProds();
     orders = Array.isArray(o) ? o : [];
 
-    if (typeof h === "string") {
-        heroData = { img: h, x: 50, y: 50 };
-    } else if (h && typeof h === "object") {
-        heroData = {
-            img: typeof h.img === "string" ? h.img : "",
-            x: typeof h.x === "number" ? h.x : 50,
-            y: typeof h.y === "number" ? h.y : 50
-        };
+    if(typeof h === "string"){ heroData = { img: h, x: 50, y: 50 }; }
+    else if(h && typeof h === "object"){
+        heroData = { img: typeof h.img === "string" ? h.img : "", x: h.x||50, y: h.y||50 };
     }
 
-    // 5. Render
-    try { applyHero(); }        catch(err){ console.warn("applyHero:", err); }
+    // 3. Render — cada uno protegido
+    try { applyHero(); } catch(err){ console.warn("applyHero:", err); }
     try { updateHeroPrevAspect(); } catch(err){ console.warn("aspect:", err); }
-    try { renderStore(); }      catch(err){ console.warn("renderStore:", err); }
-    try { renderCart(); }       catch(err){ console.warn("renderCart:", err); }
+    try { renderStore(); } catch(err){ console.error("renderStore:", err); }
+    try { renderCart(); } catch(err){ console.error("renderCart:", err); }
 
-    console.log("[init] listo — cats:", cats.length, "prods:", prods.length);
+    console.log("[init] ✓ listo — cats:", cats.length, "prods:", prods.length);
 })();
 })();
 </script>
