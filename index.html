@@ -1118,34 +1118,42 @@ function bind(){
 
 /* INIT */
 (async function init(){
-    try{
-        console.log("[init] arrancando…");
-        cart=loadCart();
-        const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
-        console.log("[init] datos:", { cats: c?.length, prods: p?.length, orders: o?.length, hero: h });
-        cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
-        prods=Array.isArray(p)&&p.length?p:defProds();
-        orders=Array.isArray(o)?o:[];
-        if(typeof h==="string"){
-            heroData={img:h,x:50,y:50};
-        }else if(h && typeof h==="object"){
-            heroData={
-                img:typeof h.img==="string"?h.img:"",
-                x:typeof h.x==="number"?h.x:50,
-                y:typeof h.y==="number"?h.y:50
-            };
-        }
-        bind();
-        applyHero();
-        updateHeroPrevAspect();
-        renderStore();
-        renderCart();
-        console.log("[init] ✓ listo");
-    }catch(err){
-        console.error("[init] ✗ FALLÓ:", err);
-    }
-})();
+    // 1. BIND PRIMERO — el Admin funciona sí o sí
+    try { bind(); } catch(err){ console.error("[init] bind falló:", err); }
 
+    // 2. Cargar datos
+    cart = loadCart();
+
+    // 3. Cargar del backend/localStorage
+    let c=null, p=null, o=null, h=null;
+    try { c = await load(K.c,null); } catch(err){ console.warn("load cats:", err); }
+    try { p = await load(K.p,null); } catch(err){ console.warn("load prods:", err); }
+    try { o = await load(K.o,null); } catch(err){ console.warn("load orders:", err); }
+    try { h = await load(K.h,null); } catch(err){ console.warn("load hero:", err); }
+
+    // 4. Asignar variables
+    cats   = Array.isArray(c) && c.length ? c : DEF.map(x=>({...x}));
+    prods  = Array.isArray(p) && p.length ? p : defProds();
+    orders = Array.isArray(o) ? o : [];
+
+    if (typeof h === "string") {
+        heroData = { img: h, x: 50, y: 50 };
+    } else if (h && typeof h === "object") {
+        heroData = {
+            img: typeof h.img === "string" ? h.img : "",
+            x: typeof h.x === "number" ? h.x : 50,
+            y: typeof h.y === "number" ? h.y : 50
+        };
+    }
+
+    // 5. Render
+    try { applyHero(); }        catch(err){ console.warn("applyHero:", err); }
+    try { updateHeroPrevAspect(); } catch(err){ console.warn("aspect:", err); }
+    try { renderStore(); }      catch(err){ console.warn("renderStore:", err); }
+    try { renderCart(); }       catch(err){ console.warn("renderCart:", err); }
+
+    console.log("[init] listo — cats:", cats.length, "prods:", prods.length);
+})();
 })();
 </script>
 </body>
