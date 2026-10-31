@@ -444,13 +444,20 @@ async function save(key,val){
         try{
             const {error}=await sb.from(TBL).upsert({key,value:val});
             if(error) throw error;
+            console.log("[save] ✓ Supabase OK:", key);
             return true;
         }catch(e){
-            console.warn("[save] Supabase falló para",key,"→ usando localStorage. Error:",e?.message||e);
+            console.warn("[save] ✗ Supabase falló para",key,"→ usando localStorage. Error:",e?.message||e);
         }
     }
-        try{ localStorage.setItem("saltadeco_"+key,JSON.stringify(val)); return true; }
-    catch(e){ return false; }
+    try{
+        localStorage.setItem("saltadeco_"+key,JSON.stringify(val));
+        console.log("[save] ✓ localStorage OK:", key);
+        return true;
+    }catch(e){
+        console.error("[save] ✗ localStorage también falló:", e);
+        return false;
+    }
 }
 async function upImg(d){
     if(!sb || !d.startsWith("data:")) return d;
@@ -744,11 +751,12 @@ const logged=()=>{try{return localStorage.getItem(LS_S)==="1"}catch(e){return fa
 function openAdmin(){
     mo("am");
     const isIn = logged();
+    console.log("[admin] logged:", isIn, "cats:", cats.length, "prods:", prods.length);
     $("loginForm").style.display = isIn ? "none" : "";
     $("panel").style.display = isIn ? "" : "none";
     if (isIn) {
-        // Forzar re-render SIEMPRE al abrir
-        showCats();
+        try { showCats(); }
+        catch(err){ console.error("[admin] showCats falló:", err); }
     }
 }
 function showCats(){
@@ -1110,25 +1118,32 @@ function bind(){
 
 /* INIT */
 (async function init(){
-    cart=loadCart();
-    const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
-    cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
-    prods=Array.isArray(p)&&p.length?p:defProds();
-    orders=Array.isArray(o)?o:[];
-    if(typeof h==="string"){
-        heroData={img:h,x:50,y:50};
-    }else if(h && typeof h==="object"){
-        heroData={
-            img:typeof h.img==="string"?h.img:"",
-            x:typeof h.x==="number"?h.x:50,
-            y:typeof h.y==="number"?h.y:50
-        };
+    try{
+        console.log("[init] arrancando…");
+        cart=loadCart();
+        const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
+        console.log("[init] datos:", { cats: c?.length, prods: p?.length, orders: o?.length, hero: h });
+        cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
+        prods=Array.isArray(p)&&p.length?p:defProds();
+        orders=Array.isArray(o)?o:[];
+        if(typeof h==="string"){
+            heroData={img:h,x:50,y:50};
+        }else if(h && typeof h==="object"){
+            heroData={
+                img:typeof h.img==="string"?h.img:"",
+                x:typeof h.x==="number"?h.x:50,
+                y:typeof h.y==="number"?h.y:50
+            };
+        }
+        bind();
+        applyHero();
+        updateHeroPrevAspect();
+        renderStore();
+        renderCart();
+        console.log("[init] ✓ listo");
+    }catch(err){
+        console.error("[init] ✗ FALLÓ:", err);
     }
-    bind();
-    applyHero();
-    updateHeroPrevAspect();
-    renderStore();
-    renderCart();
 })();
 
 })();
