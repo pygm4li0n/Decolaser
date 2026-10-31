@@ -11,7 +11,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f7f1df;--soft:#ebe1c8;--card:#fffdf7;--ink:#33482e;--txt:#525b4c;--mut:#7c8270;--line:#dcd1b2;--sage:#5d8255;--sage-d:#3f5c38;--gold:#d9a72c;--gold-l:#f3dd98;--d:'Playfair Display',Georgia,serif;--s:'Jost',Arial,sans-serif;--shadow:0 10px 30px rgba(63,92,56,.12);--shadow-lg:0 18px 44px rgba(63,92,56,.18);--ease:cubic-bezier(.22,1,.36,1);--sage-grad:linear-gradient(135deg,#7a9972,#3f5c38)}
 html{scroll-behavior:smooth}
-body{font:400 15.5px/1.6 var(--s);color:var(--txt);background-color:var(--bg);background-image:repeating-linear-gradient(45deg,var(--soft) 0,var(--soft) 1px,transparent 1px,transparent 20px),repeating-linear-gradient(-45deg,var(--soft) 0,var(--soft) 1px,transparent 1px,transparent 20px);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font:400 15.5px/1.6 var(--s);color:var(--txt);background-color:var(--bg);background-image:radial-gradient(var(--soft) 1.5px, transparent 1.5px);background-size:20px 20px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,textarea,select{font:inherit;width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);outline:0;border-radius:10px}
 input:focus,textarea:focus,select:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(107,138,99,.18)}
@@ -67,6 +67,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(55,75,50,.78))}
 .tile div{position:relative;z-index:1}
 .tile i{display:block;font:500 .68rem var(--s);letter-spacing:.2em;margin-top:6px;font-style:normal;color:var(--gold-l)}
+.tile.placeholder::after{display:none}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);padding:clamp(56px,9vw,110px) clamp(16px,4vw,48px);align-items:center}
 .about h2{font:800 clamp(2.2rem,5vw,3.8rem)/1.05 var(--d);color:var(--sage-d)}
 .about h2::after{content:"";display:block;width:70px;height:3px;background:var(--gold);margin-top:18px;border-radius:2px}
@@ -653,19 +654,27 @@ function renderNav(){
 
 function renderStore(){
     // 1. Placeholders para Categorías (si no tienen foto, usan un lindo gradiente)
+      // 1. Placeholders para Categorías (idénticos a los de productos si no tienen foto)
     $("tiles").innerHTML=cats.map(c=>{
-        const bgStyle = c.img ? `background-image:url('${c.img}')` : `background:linear-gradient(135deg,var(--soft),var(--line))`;
-        return `<a class="tile" href="#cat-${esc(c.id)}" style="${bgStyle}"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
+        if(!c.img) {
+            return `<a class="tile placeholder" href="#cat-${esc(c.id)}" style="background:var(--soft); border:2px dashed var(--line); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <div style="font-size:2.8rem; margin-bottom:10px;">📦</div>
+                <span style="font:700 1.3rem var(--d); color:var(--sage-d); text-align:center; padding:0 10px; line-height:1.1;">${esc(c.name)}</span>
+                <i style="font:500 .7rem var(--s); letter-spacing:.1em; color:var(--mut); margin-top:10px;">PRÓXIMAMENTE</i>
+            </a>`;
+        }
+        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
     }).join("");
 
-    // 2. Placeholders para Productos (si está vacío, mostramos 4 tarjetas dummy)
-    const dummyCard = `<article class="card" style="cursor:default"><div class="cm" style="background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--mut)">📦</div><h3>Próximamente</h3><p>Nuevos productos en camino</p><div class="pr">$---</div></article>`;
+    // 2. Placeholders para Productos (Muestra 5 en desktop, con el mismo diseño unificado)
+    const dummyCard = `<article class="card" style="cursor:default; border-style:dashed;"><div class="cm" style="background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:3rem;">📦</div><h3 style="color:var(--sage-d);text-align:center;margin-top:12px;">Próximamente</h3><p style="color:var(--mut);text-align:center;font-size:.85rem;">Nuevos productos en camino</p><div class="pr" style="text-align:center;color:var(--mut);">$---</div></article>`;
     
-       $("store").innerHTML=cats.map(c=>{
+    $("store").innerHTML=cats.map(c=>{
         const l=filterList(sorted(c.id));
         const shown=storeShown[c.id]||PAGE_SIZE;
         const slice=l.slice(0,shown);
         const more=l.length>slice.length;
+        // Forzamos Array(5) para mostrar exactamente 5 placeholders en la grilla
         const gridContent = slice.length ? slice.map(productCard).join("") : Array(5).fill(dummyCard).join("");
         return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="scroll-wrapper"><button class="scroll-arrow left hidden" aria-label="Anterior" data-dir="-1">‹</button><div class="grid">${gridContent}</div><button class="scroll-arrow right hidden" aria-label="Siguiente" data-dir="1">›</button></div></section>`;
     }).join("");
