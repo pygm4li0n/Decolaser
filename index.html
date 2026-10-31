@@ -29,14 +29,22 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .icon-btn:hover{color:var(--gold)}
 .icon-btn svg{width:22px;height:22px}
 .cartbtn b{position:absolute;top:-4px;right:-6px;background:var(--sage-d);color:#fffbe9;border-radius:50%;min-width:18px;height:18px;display:grid;place-items:center;font-size:.62rem;font-weight:600;border:2px solid var(--bg)}
-.hero{position:relative;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,9vw,120px) 20px;overflow:hidden;background-color:var(--bg)}
-.hero-bg-layer{position:absolute;inset:0;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:var(--bg);opacity:0;transition:opacity 1s ease;z-index:0;pointer-events:none}
+.hero{position:relative;min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,9vw,120px) 20px;overflow:hidden;background-color:var(--bg)}
+.hero-bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;pointer-events:none;opacity:0;transition:opacity 1s ease}
 .hero-bg-layer.active{opacity:1}
 .hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;max-width:900px;transition:opacity 0.5s ease, visibility 0.5s ease}
 .hero-content.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .hero-dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:10}
 .hero-dots .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.6);cursor:pointer;transition:.3s;border:2px solid transparent;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
 .hero-dots .dot.active{background:var(--sage-d);border-color:#fff;transform:scale(1.2)}
+
+/* --- OCULTAR SLIDER EN MOBILE --- */
+@media(max-width:768px){
+    .hero-dots { display: none !important; }
+    .hero-bg-layer:nth-child(2) { display: none !important; }
+    .hero-bg-layer:nth-child(1) { opacity: 1 !important; }
+    .hero-content { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+}
 .hero small{font:500 .78rem var(--s);letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .hero h1{font:800 clamp(3rem,10vw,7.4rem)/.96 var(--d);color:var(--sage-d);text-transform:uppercase;letter-spacing:-.01em}
 .hero h1 i{font-style:normal;color:var(--gold);font-size:.5em;vertical-align:middle;margin-left:8px;display:inline-block}
@@ -52,7 +60,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .btn.g{background:transparent;color:var(--sage-d);border-color:var(--line);width:100%}
 .btn.g:hover{background:var(--soft);border-color:var(--sage)}
 .btn:disabled{opacity:.45;pointer-events:none}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px);width:100%;max-width:1400px;margin:0 auto}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px);width:100%;max-width:1400px;margin:0 auto}
 .tile{position:relative;aspect-ratio:4/3;border-radius:16px;background:var(--soft) center/cover;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:22px;color:#fff;text-align:center;border:2px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s}
 .tile:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
 .tile span{display:block;font:700 1.5rem/1.1 var(--d)}
@@ -84,17 +92,20 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 @media(max-width:768px){
     .grid{
         display:grid;
-        grid-template-rows:repeat(2,auto);
+        grid-template-rows:repeat(2, 1fr);
         grid-auto-flow:column;
-        grid-auto-columns:42vw;
+        grid-auto-columns:44vw;
         gap:12px;
         overflow-x:auto;
         scroll-snap-type:x mandatory;
-        padding-bottom:15px;
+        padding-bottom:20px;
         -webkit-overflow-scrolling:touch;
-        justify-content:start; 
+        justify-content:start;
     }
-    .grid::-webkit-scrollbar{display:none}
+    /* Barrita sutil de scroll */
+    .grid::-webkit-scrollbar { height: 4px; }
+    .grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+    .grid::-webkit-scrollbar-track { background: transparent; }
     .grid .card{scroll-snap-align:start}
 }
 .card{cursor:pointer;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.3s}
@@ -190,9 +201,11 @@ footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:22px clamp
 .acat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .acat{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;transition:.25s}
 .acat:hover{border-color:var(--gold);box-shadow:0 12px 24px rgba(63,92,56,.08);transform:translateY(-3px)}
-.acat-open{flex:1;text-align:left;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.acat-open{flex:1;text-align:left;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0;transition:background .2s}
 .acat-img{width:100%;height:110px;border-radius:10px;background-size:cover;background-position:center;border:1px solid var(--line);transition:.3s;background-color:var(--soft)}
-.acat:hover .acat-img{filter:brightness(1.05)}
+.acat-open:hover{background:var(--gold-l)}
+.acat-open:hover .acat-info strong{color:var(--sage-d)}
+.acat:hover .acat-img{filter:brightness(0.95)}
 .acat-info{display:flex;flex-direction:column;gap:2px}
 .acat-info strong{font:700 1.15rem var(--d);color:var(--sage-d)}
 .acat-info small{font-size:.7rem;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
@@ -635,7 +648,7 @@ function renderStore(){
         const shown=storeShown[c.id]||PAGE_SIZE;
         const slice=l.slice(0,shown);
         const more=l.length>slice.length;
-        const gridContent = slice.length ? slice.map(productCard).join("") : dummyCard+dummyCard+dummyCard+dummyCard;
+        const gridContent = slice.length ? slice.map(productCard).join("") : Array(5).fill(dummyCard).join("");
         return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="grid">${gridContent}</div></section>`;
     }).join("");
 }
@@ -1024,23 +1037,26 @@ function bind(){
             $("pUploadText").textContent="Cambiar imagen";
         }).catch(x=>toast(x.message));
     };
-      // --- INICIO DEL SLIDER ---
+  
+     // --- INICIO DEL SLIDER ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.hero-bg-layer');
     const dots = document.querySelectorAll('.hero-dots .dot');
-    const heroContent = document.querySelector('.hero-content'); // <-- Nueva línea
+    const heroContent = document.querySelector('.hero-content');
     let slideInt;
 
+    const isMobile = () => window.innerWidth <= 768;
+
     const goToSlide = (index) => {
-        if(!slides.length || !dots.length) return;
+        if (!slides.length || !dots.length) return;
         slides[currentSlide].classList.remove('active');
         dots[currentSlide].classList.remove('active');
         currentSlide = index;
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
 
-        // Mostrar solo en la primera imagen
-        if (currentSlide === 0) {
+        // Si estamos en mobile o es el slide 0, mostramos el contenido. Si no, lo ocultamos.
+        if (isMobile() || currentSlide === 0) {
             heroContent.classList.remove('hidden');
         } else {
             heroContent.classList.add('hidden');
@@ -1049,6 +1065,13 @@ function bind(){
 
     const startSlider = () => {
         clearInterval(slideInt);
+        if (isMobile()) {
+            // En mobile forzamos el slide 0 y no hacemos el intervalo
+            slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+            dots.forEach((d, i) => d.classList.toggle('active', i === 0));
+            heroContent.classList.remove('hidden');
+            return;
+        }
         slideInt = setInterval(() => {
             goToSlide((currentSlide + 1) % slides.length);
         }, 5000);
@@ -1056,13 +1079,16 @@ function bind(){
 
     dots.forEach((dot, idx) => {
         dot.onclick = () => {
+            if (isMobile()) return;
             goToSlide(idx);
             startSlider();
         };
     });
 
     startSlider();
+    window.addEventListener('resize', startSlider);
     // --- FIN DEL SLIDER ---
+
     $("cmOk").onclick=()=>closeConfirm(true);
     $("cmCancel").onclick=()=>closeConfirm(false);
     document.addEventListener("input",e=>{
