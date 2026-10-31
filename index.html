@@ -10,16 +10,11 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f7f1df;--soft:#ebe1c8;--card:#fffdf7;--ink:#33482e;--txt:#525b4c;--mut:#7c8270;--line:#dcd1b2;--sage:#5d8255;--sage-d:#3f5c38;--gold:#d9a72c;--gold-l:#f3dd98;--d:'Playfair Display',Georgia,serif;--s:'Jost',Arial,sans-serif;--shadow:0 10px 30px rgba(63,92,56,.12);--shadow-lg:0 18px 44px rgba(63,92,56,.18);--ease:cubic-bezier(.22,1,.36,1)}
-html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--sage) var(--bg)}
-body{font:400 15.5px/1.6 var(--s);color:var(--txt);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageIn .6s var(--ease) both}
-@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+html{scroll-behavior:smooth}
+body{font:400 15.5px/1.6 var(--s);color:var(--txt);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-input,textarea,select{font:inherit;width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);outline:0;border-radius:10px;transition:.2s}
+input,textarea,select{font:inherit;width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);outline:0;border-radius:10px}
 input:focus,textarea:focus,select:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(107,138,99,.18)}
-::selection{background:var(--gold-l);color:var(--ink)}
-.ico{width:1em;height:1em}
-/* bar + header */
 .bar{background:var(--sage);color:#fffbe9;text-align:center;font:500 .76rem var(--s);letter-spacing:.18em;text-transform:uppercase;padding:9px 12px}
 header{position:sticky;top:0;z-index:50;background:rgba(248,243,230,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:12px clamp(16px,4vw,48px)}
 .nav{display:flex;gap:28px;font:500 .8rem var(--s);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
@@ -27,35 +22,24 @@ header{position:sticky;top:0;z-index:50;background:rgba(248,243,230,.93);backdro
 .logo{font:800 1.45rem/1 var(--d);color:var(--ink);text-align:center;letter-spacing:.02em;display:flex;flex-direction:column;align-items:center}
 .logo small{font:500 .62rem var(--s);letter-spacing:.42em;color:var(--gold);margin-top:3px}
 .cartbtn{justify-self:end;font:500 .8rem var(--s);letter-spacing:.14em;text-transform:uppercase;display:flex;gap:8px;align-items:center;color:var(--ink)}
-.cartbtn b{background:var(--gold);color:#fff;border-radius:50%;min-width:22px;height:22px;display:grid;place-items:center;font-size:.72rem;transition:transform .25s var(--ease)}
-.cartbtn b.bump{animation:bump .4s var(--ease)}
-@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
-/* hero */
+.cartbtn b{background:var(--gold);color:#fff;border-radius:50%;min-width:22px;height:22px;display:grid;place-items:center;font-size:.72rem}
 .hero{position:relative;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(60px,9vw,120px) 20px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#fffaf0 0%,var(--bg) 70%)}
-.hero svg.deco{position:absolute;pointer-events:none;animation:floatDeco 9s ease-in-out infinite}
-.hero .b2{animation-delay:-2s}.hero .b3{animation-delay:-4s}.hero .b4{animation-delay:-6s}
-@keyframes floatDeco{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(1.2deg)}}
+.hero svg.deco{position:absolute;pointer-events:none}
 .hero .b1{top:-40px;left:-60px;width:min(46vw,420px)}
 .hero .b2{top:-30px;right:-50px;width:min(40vw,380px)}
 .hero .b3{bottom:-30px;left:-20px;width:min(40vw,360px)}
 .hero .b4{bottom:20px;right:20px;width:min(18vw,170px)}
 .hero>*:not(svg){position:relative;z-index:1}
 .hero small{font:500 .78rem var(--s);letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-.hero h1{font:800 clamp(3rem,10vw,7.4rem)/.96 var(--d);color:var(--sage-d);text-transform:uppercase;letter-spacing:-.01em;text-shadow:0 2px 0 rgba(255,255,255,.35);animation:riseIn .9s var(--ease) both}
-@keyframes spinSlow{to{transform:rotate(360deg)}}
-@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.hero h1 i{font-style:normal;color:var(--gold);font-size:.5em;vertical-align:middle;margin-left:8px;display:inline-block;animation:spinSlow 14s linear infinite}
+.hero h1{font:800 clamp(3rem,10vw,7.4rem)/.96 var(--d);color:var(--sage-d);text-transform:uppercase;letter-spacing:-.01em}
+.hero h1 i{font-style:normal;color:var(--gold);font-size:.5em;vertical-align:middle;margin-left:8px;display:inline-block}
 .hero p{max-width:50ch;margin:22px auto 30px;color:var(--txt)}
 .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .hero.has-photo{background-color:#2c3a29;background-size:cover;background-position:50% 50%}
 .hero.has-photo svg.deco{display:none}
 .hero.has-photo h1,.hero.has-photo p{color:#fffbe9}
-/* buttons */
-.btn{display:inline-block;padding:14px 32px;background:var(--sage);color:#fffbe9;font:500 .8rem var(--s);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--sage);border-radius:40px;transition:.28s var(--ease);text-align:center;position:relative;overflow:hidden}
+.btn{display:inline-block;padding:14px 32px;background:var(--sage);color:#fffbe9;font:500 .8rem var(--s);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--sage);border-radius:40px;transition:.28s;text-align:center}
 .btn:hover{background:var(--sage-d);border-color:var(--sage-d);transform:translateY(-2px);box-shadow:var(--shadow)}
-.btn:active{transform:translateY(0)}
-.btn::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transition:left .6s var(--ease)}
-.btn:hover::after{left:130%}
 .btn.l{background:var(--gold);border-color:var(--gold);color:#fff}
 .btn.l:hover{background:#bf952d;border-color:#bf952d}
 .btn.o{background:transparent;color:var(--sage-d);border-color:var(--sage)}
@@ -64,43 +48,35 @@ header{position:sticky;top:0;z-index:50;background:rgba(248,243,230,.93);backdro
 .btn.g{background:transparent;color:var(--sage-d);border-color:var(--line);width:100%}
 .btn.g:hover{background:var(--soft);border-color:var(--sage)}
 .btn:disabled{opacity:.45;pointer-events:none}
-/* tiles */
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px)}
 .tile{position:relative;aspect-ratio:1;border-radius:50% 50% 24px 24px/40% 40% 24px 24px;background:var(--soft) center/cover;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:22px;color:#fff;text-align:center;border:3px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s}
-.tile:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--shadow-lg);border-color:var(--gold)}
-.tile span{display:block;font:700 1.5rem/1.1 var(--d);transition:transform .3s var(--ease)}
-.tile:hover span{transform:translateY(-3px)}
+.tile:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
+.tile span{display:block;font:700 1.5rem/1.1 var(--d)}
 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(55,75,50,.78))}
 .tile div{position:relative;z-index:1}
 .tile i{display:block;font:500 .68rem var(--s);letter-spacing:.2em;margin-top:6px;font-style:normal;color:var(--gold-l)}
-/* about */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);padding:clamp(56px,9vw,110px) clamp(16px,4vw,48px);align-items:center}
 .about h2{font:800 clamp(2.2rem,5vw,3.8rem)/1.05 var(--d);color:var(--sage-d)}
 .about h2::after{content:"";display:block;width:70px;height:3px;background:var(--gold);margin-top:18px;border-radius:2px}
 .about p{margin-bottom:14px;max-width:58ch}
-/* features */
 .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;padding:0 clamp(16px,4vw,48px) 20px}
 .feat div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 22px;text-align:center;transition:.25s}
 .feat div:hover{border-color:var(--gold);transform:translateY(-3px)}
 .feat svg{width:30px;height:30px;color:var(--gold);margin:0 auto 10px;display:block}
 .feat b{display:block;font:700 1.15rem var(--d);color:var(--sage-d);margin-bottom:4px}
 .feat span{display:block;color:var(--mut);font-size:.88rem}
-/* store */
 .sec{padding:clamp(40px,6vw,76px) clamp(16px,4vw,48px) 20px}
 .sh{text-align:center;margin-bottom:30px}
 .sh h2{font:800 clamp(2rem,4.5vw,3.2rem)/1.1 var(--d);color:var(--sage-d)}
-.sh h2::before{content:"✦";display:block;color:var(--gold);font-size:.9rem;margin-bottom:6px}
+.sh h2::before{content:"*";display:block;color:var(--gold);font-size:.9rem;margin-bottom:6px}
 .sh p{color:var(--mut);font-size:.92rem;margin-top:4px}
 .store-tools{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:6px auto 22px;max-width:720px}
 .store-tools input,.store-tools select{padding:10px 14px;border-radius:30px;font-size:.85rem}
 .store-tools input{flex:1;min-width:180px}
 .store-tools select{width:auto;min-width:150px}
-.load-more-wrap{display:flex;justify-content:center;margin:22px 0 8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:26px 18px}
 .card{cursor:pointer;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.3s}
 .card:hover{box-shadow:var(--shadow-lg);border-color:var(--gold);transform:translateY(-5px)}
-.card:hover h3{color:var(--sage-d)}
-.card:hover .pr{transform:translateX(3px)}
 .cm{position:relative;aspect-ratio:1;background:var(--soft);overflow:hidden}
 .cm img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .card:hover .cm img{transform:scale(1.05)}
@@ -108,12 +84,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(248,243,230,.93);backdro
 .card:hover .add{opacity:1;transform:none}
 .add:hover{background:var(--sage);color:#fff}
 @media(hover:none){.add{opacity:1;transform:none}}
-.card h3{font:700 1.1rem var(--d);margin:14px 16px 0;color:var(--ink);position:relative;transition:color .25s}
+.card h3{font:700 1.1rem var(--d);margin:14px 16px 0;color:var(--ink)}
 .card p{color:var(--mut);font-size:.85rem;margin:2px 16px 0}
-.card .pr{font:600 1rem var(--s);color:var(--gold);margin:8px 16px 16px;transition:transform .25s var(--ease)}
+.card .pr{font:600 1rem var(--s);color:var(--gold);margin:8px 16px 16px}
 .card .pr span{font-size:.65rem;letter-spacing:.14em;color:var(--mut);margin-left:4px}
-.empty{grid-column:1/-1;padding:30px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--mut);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
-/* footer */
+.empty{grid-column:1/-1;padding:30px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--mut);font-size:.85rem;text-transform:uppercase}
 footer{background:var(--sage-d);color:#f3efdc;margin-top:70px;padding:clamp(40px,6vw,70px) clamp(16px,4vw,48px) 24px;position:relative}
 footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold))}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.18)}
@@ -123,12 +98,10 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 .fg a:hover{color:#fff}
 .fb{display:flex;justify-content:space-between;align-items:center;padding-top:20px;color:#b9c4ab;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase}
 .fb button:hover{color:#fff}
-/* overlay / drawer */
 .ov{position:fixed;inset:0;background:rgba(50,64,46,.45);z-index:90;opacity:0;pointer-events:none;transition:.3s}
 .ov.on{opacity:1;pointer-events:auto}
-#drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--bg);z-index:100;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;border-left:1px solid var(--line)}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--bg);z-index:100;transform:translateX(100%);transition:transform .4s;display:flex;flex-direction:column;border-left:1px solid var(--line);box-shadow:-10px 0 40px rgba(40,55,36,.18)}
 #drawer.on{transform:none}
-#drawer{box-shadow:-10px 0 40px rgba(40,55,36,.18)}
 .dh{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--line);font:700 1.5rem var(--d);color:var(--sage-d)}
 .dh button{color:var(--mut)}.dh button:hover{color:var(--ink)}
 #items{flex:1;overflow:auto;padding:18px 24px;display:flex;flex-direction:column;gap:16px}
@@ -144,11 +117,9 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 .df{padding:20px 24px;border-top:1px solid var(--line);display:grid;gap:10px;background:var(--soft)}
 .tot{display:flex;justify-content:space-between;align-items:baseline;font:700 1.25rem var(--d);color:var(--ink)}
 .tot span:last-child{font-size:1.5rem;color:var(--gold)}
-/* modals */
 .modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(50,64,46,.55);backdrop-filter:blur(4px)}
 .modal.on{display:flex}
-.mb{background:var(--bg);width:min(94vw,520px);max-height:92dvh;overflow:auto;padding:28px;position:relative;border-radius:22px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(40,55,36,.25);animation:modalIn .35s var(--ease) both}
-@keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.mb{background:var(--bg);width:min(94vw,520px);max-height:92dvh;overflow:auto;padding:28px;position:relative;border-radius:22px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(40,55,36,.25)}
 .mb.w{width:min(96vw,940px)}
 .mb h3{font:700 1.7rem var(--d);color:var(--sage-d);margin-bottom:14px}
 .x{position:absolute;top:12px;right:16px;font-size:1.05rem;color:var(--mut)}.x:hover{color:var(--ink)}
@@ -164,14 +135,13 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 .row{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:14px;margin-bottom:6px;font-size:.88rem;background:var(--card)}
 .row img{width:44px;height:44px;object-fit:cover;border-radius:10px;flex-shrink:0}
 .row span{flex:1}
-#toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,12px);background:var(--sage-d);color:#fffbe9;padding:12px 24px;border-radius:30px;font:500 .78rem var(--s);letter-spacing:.1em;opacity:0;transition:.3s;z-index:300;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+#toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,12px);background:var(--sage-d);color:#fffbe9;padding:12px 24px;border-radius:30px;font:500 .78rem var(--s);letter-spacing:.1em;opacity:0;transition:.3s;z-index:300;pointer-events:none;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-/* admin */
 .admin-sub{font-size:.86rem;color:var(--mut);margin-bottom:18px}
 #loginForm{max-width:380px;margin:0 auto}
 .admin-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
 .admin-head h4,.hero-admin h4,.form-card h4{font:700 1.3rem var(--d);color:var(--sage-d)}
-.back-btn{padding:8px 16px;border:1px solid var(--line);border-radius:30px;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;background:var(--card)}
+.back-btn{padding:8px 16px;border:1px solid var(--line);border-radius:30px;font-size:.72rem;text-transform:uppercase;background:var(--card)}
 .back-btn:hover{border-color:var(--sage)}
 .hero-admin,.form-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card);margin-bottom:18px}
 .hero-admin-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
@@ -180,7 +150,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 .hero-admin-prev-wrap{position:relative;width:100%;background:var(--soft) 50% 50%/cover no-repeat;border:1px solid var(--line);border-radius:14px;overflow:hidden;user-select:none;touch-action:none}
 .hero-admin-prev-wrap.has{cursor:grab}
 .hero-admin-prev-wrap.dragging{cursor:grabbing;border-color:var(--gold)}
-.hero-admin-prev-wrap::before{content:"Sin foto · fondo floral";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 .72rem var(--s);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.hero-admin-prev-wrap::before{content:"Sin foto";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 .72rem var(--s);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .hero-admin-prev-wrap.has::before{display:none}
 .hero-prev-overlay{position:absolute;left:0;right:0;bottom:0;padding:16px 20px;color:#fffbe9;display:none;flex-direction:column}
 .hero-admin-prev-wrap.has .hero-prev-overlay{display:flex}
@@ -221,11 +191,6 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="flower" viewBox="0 0 60 60"><g fill="none" stroke="#d4a93c" stroke-width="1.6"><ellipse cx="30" cy="14" rx="6" ry="10"/><ellipse cx="30" cy="46" rx="6" ry="10"/><ellipse cx="14" cy="30" rx="10" ry="6"/><ellipse cx="46" cy="30" rx="10" ry="6"/><circle cx="30" cy="30" r="4"/></g></symbol>
-<symbol id="sprig" viewBox="0 0 120 80"><g fill="#4f6a49"><path d="M4 76 Q60 50 112 8" stroke="#4f6a49" stroke-width="2" fill="none"/><ellipse cx="30" cy="58" rx="12" ry="5" transform="rotate(-35 30 58)"/><ellipse cx="52" cy="44" rx="12" ry="5" transform="rotate(-40 52 44)"/><ellipse cx="74" cy="30" rx="12" ry="5" transform="rotate(-45 74 30)"/><ellipse cx="94" cy="17" rx="11" ry="4.5" transform="rotate(-50 94 17)"/></g></symbol>
-</defs></svg>
-
 <div class="bar">Envíos a todo el país · Diseños hechos con láser y cariño</div>
 
 <header>
@@ -235,12 +200,11 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 </header>
 
 <section class="hero" id="hero">
-  <svg class="deco b1" viewBox="0 0 300 300"><path d="M0 0 H290 Q300 120 200 190 Q110 250 0 270Z" fill="#7b9972" opacity=".92"/><use href="#sprig" x="20" y="90" width="150" height="100" opacity=".9"/></svg>
-  <svg class="deco b2" viewBox="0 0 300 300"><path d="M60 0 H300 V220 Q200 300 120 200 Q40 100 60 0Z" fill="#d9b24a" opacity=".92"/><use href="#flower" x="150" y="70" width="60" height="60" style="filter:brightness(4)"/></svg>
-  <svg class="deco b3" viewBox="0 0 300 300"><path d="M0 120 Q120 140 200 300 H0Z" fill="#7b9972" opacity=".85"/><use href="#flower" x="30" y="90" width="56" height="56"/></svg>
-  <svg class="deco b4" viewBox="0 0 60 60"><use href="#flower" width="60" height="60"/></svg>
+  <svg class="deco b1" viewBox="0 0 300 300"><path d="M0 0 H290 Q300 120 200 190 Q110 250 0 270Z" fill="#7b9972" opacity=".92"/></svg>
+  <svg class="deco b2" viewBox="0 0 300 300"><path d="M60 0 H300 V220 Q200 300 120 200 Q40 100 60 0Z" fill="#d9b24a" opacity=".92"/></svg>
+  <svg class="deco b3" viewBox="0 0 300 300"><path d="M0 120 Q120 140 200 300 H0Z" fill="#7b9972" opacity=".85"/></svg>
   <small>Decoración · Regalos · Souvenirs</small>
-  <h1>Salta<i>✦</i><br>Decolaser</h1>
+  <h1>Salta<i>*</i><br>Decolaser</h1>
   <p>Diseños delicados en madera y MDF con corte y grabado láser. Decoración, cuadros, souvenirs y regalos personalizados, hechos a tu medida.</p>
   <div class="btns"><a href="#colecciones" class="btn">Ver colecciones</a><a href="#contacto" class="btn l">Pedir presupuesto</a></div>
 </section>
@@ -250,17 +214,17 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 <section class="about" id="nosotros">
   <h2>Detalles que se sienten hechos a mano</h2>
   <div>
-    <p>En Salta Decolaser transformamos la madera y el MDF en piezas únicas con corte y grabado láser: decoración para el hogar, cuadros, letreros, souvenirs y regalos personalizados.</p>
-    <p>Cada diseño se adapta a tu idea, tus colores y tu ocasión, con terminaciones prolijas y un estilo suave y natural.</p>
+    <p>En Salta Decolaser transformamos la madera y el MDF en piezas únicas con corte y grabado láser.</p>
+    <p>Cada diseño se adapta a tu idea, tus colores y tu ocasión.</p>
     <p>Realizamos envíos a todo el país y trabajamos por encargo y presupuesto.</p>
   </div>
 </section>
 
 <div class="feat">
-  <div><svg><use href="#flower"/></svg><b>Diseño a medida</b><span>Tu idea, tu nombre, tu estilo</span></div>
-  <div><svg><use href="#flower"/></svg><b>Corte y grabado</b><span>Precisión láser en cada detalle</span></div>
-  <div><svg><use href="#flower"/></svg><b>Regalos y eventos</b><span>Souvenirs para cada ocasión</span></div>
-  <div><svg><use href="#flower"/></svg><b>Envíos al país</b><span>Pedidos y presupuestos online</span></div>
+  <div><b>Diseño a medida</b><span>Tu idea, tu nombre, tu estilo</span></div>
+  <div><b>Corte y grabado</b><span>Precisión láser en cada detalle</span></div>
+  <div><b>Regalos y eventos</b><span>Souvenirs para cada ocasión</span></div>
+  <div><b>Envíos al país</b><span>Pedidos y presupuestos online</span></div>
 </div>
 
 <main id="colecciones"><div id="store"></div></main>
@@ -277,7 +241,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 <div class="ov" id="ov"></div>
 
 <aside id="drawer" aria-hidden="true">
-  <div class="dh"><span>Carrito (<span id="cq">0</span>)</span><button id="cartClose" aria-label="Cerrar">✕</button></div>
+  <div class="dh"><span>Carrito (<span id="cq">0</span>)</span><button id="cartClose">X</button></div>
   <div id="items"></div>
   <div class="df">
     <div class="tot"><span>Total</span><span id="cartTotal">$0</span></div>
@@ -288,7 +252,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 
 <div class="modal" id="lbm">
   <div class="mb w">
-    <button class="x" data-close aria-label="Cerrar">✕</button>
+    <button class="x" data-close>Cerrar</button>
     <div class="lb">
       <img id="lbImg" alt="">
       <div>
@@ -304,24 +268,24 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 
 <div class="modal" id="om">
   <div class="mb">
-    <button class="x" data-close aria-label="Cerrar">✕</button>
+    <button class="x" data-close>Cerrar</button>
     <h3>Solicitar pedido</h3>
     <div id="osum" style="margin-bottom:14px"></div>
-    <div class="f"><label for="oName">Nombre</label><input id="oName" maxlength="60" autocomplete="name"></div>
-    <div class="f"><label for="oContact">Contacto (tel / email)</label><input id="oContact" maxlength="80"></div>
-    <div class="f"><label for="oNote">Nota (medidas, texto a grabar, colores…)</label><textarea id="oNote" rows="3" maxlength="300"></textarea></div>
+    <div class="f"><label for="oName">Nombre</label><input id="oName" maxlength="60"></div>
+    <div class="f"><label for="oContact">Contacto</label><input id="oContact" maxlength="80"></div>
+    <div class="f"><label for="oNote">Nota</label><textarea id="oNote" rows="3" maxlength="300"></textarea></div>
     <button class="btn k" id="oSend">Enviar pedido</button>
   </div>
 </div>
 
 <div class="modal" id="am">
   <div class="mb w">
-    <button class="x" data-close aria-label="Cerrar">✕</button>
+    <button class="x" data-close>Cerrar</button>
     <form id="loginForm">
       <h3>Acceso</h3>
       <p class="admin-sub">Panel privado · Salta Decolaser</p>
-      <div class="f"><label for="lu">Usuario</label><input id="lu" autocomplete="username"></div>
-      <div class="f"><label for="lp">Contraseña</label><input id="lp" type="password" autocomplete="current-password"></div>
+      <div class="f"><label for="lu">Usuario</label><input id="lu"></div>
+      <div class="f"><label for="lp">Contraseña</label><input id="lp" type="password"></div>
       <button class="btn k">Entrar</button>
     </form>
     <div id="panel" style="display:none">
@@ -330,16 +294,12 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
       <div id="viewCats">
         <div class="hero-admin">
           <h4>Foto de portada</h4>
-          <p class="admin-sub" style="margin-bottom:12px">Reemplaza el fondo floral de la portada. Arrastrá para encuadrar.</p>
           <div class="hero-admin-row">
             <input type="file" id="heroFile" accept="image/*" hidden>
             <label for="heroFile" class="upload" id="heroUpload"><span id="heroUploadText">Subir foto</span></label>
             <button type="button" class="btn g" id="heroClear">Quitar foto</button>
           </div>
-          <div class="hero-admin-prev-wrap" id="heroPrevWrap">
-            <div class="hero-prev-overlay"><div class="hpo-small">Salta Decolaser</div><div class="hpo-title">Salta Decolaser</div></div>
-          </div>
-          <div class="hero-drag-hint hide" id="heroDragHint">Arrastrá la imagen para encuadrar</div>
+          <div class="hero-admin-prev-wrap" id="heroPrevWrap"></div>
         </div>
         <form id="catForm" class="acat-new">
           <input id="cn" placeholder="Nueva categoría" required>
@@ -350,19 +310,19 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
       </div>
       <div id="viewItems" style="display:none">
         <div class="admin-head">
-          <button type="button" class="back-btn" id="backToCatsBtn">← Categorías</button>
+          <button type="button" class="back-btn" id="backToCatsBtn">Volver</button>
           <h4 id="adminCatTitle"></h4>
         </div>
         <div class="ag">
           <div class="form-card">
-            <h4 id="pft" style="margin-bottom:14px">Agregar producto</h4>
+            <h4 id="pft">Agregar producto</h4>
             <form id="pf" novalidate>
               <div class="f"><label for="pc">Categoría</label><select id="pc"></select></div>
               <div class="f">
                 <label for="pFile">Imagen</label>
                 <input type="file" id="pFile" accept="image/*" hidden>
                 <label for="pFile" class="upload" id="pUpload"><span id="pUploadText">Subir imagen</span></label>
-                <img id="pPrev" style="display:none;margin-top:8px;max-height:140px;border-radius:10px;border:1px solid var(--line)">
+                <img id="pPrev" style="display:none;margin-top:8px;max-height:140px;border-radius:10px">
               </div>
               <div class="f"><label for="pt">Título</label><input id="pt" maxlength="60" required></div>
               <div class="f"><label for="pd">Descripción</label><input id="pd" maxlength="120"></div>
@@ -396,19 +356,20 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;back
 (function(){
 "use strict";
 
-const URL_="https://zzrmqidzfjqrmrictels.supabase.co",
-      KEY="sb_publishable_6b27IFeNHruaWcIO5mP_yg_lwn79eZ5",
-      TBL="saltadeco_content",
-      BUCKET="saltadeco";
+const URL_="https://zzrmqidzfjqrmrictels.supabase.co";
+const KEY="sb_publishable_6b27IFeNHruaWcIO5mP_yg_lwn79eZ5";
+const TBL="saltadeco_content";
+const BUCKET="saltadeco";
 
-const K={c:"saltadeco_categories_v1",p:"saltadeco_products_v1",o:"saltadeco_orders_v1",h:"saltadeco_hero_v1"},
-      LS_CART="saltadeco_cart",
-      LS_S="saltadeco_admin_session",
-      AU="DAMI", AP="1234";
+const K={c:"saltadeco_categories_v1",p:"saltadeco_products_v1",o:"saltadeco_orders_v1",h:"saltadeco_hero_v1"};
+const LS_CART="saltadeco_cart";
+const LS_S="saltadeco_admin_session";
+const AU="DAMI";
+const AP="1234";
 
 const DEF=[
-    {id:"decoracion",name:"Decoración",desc:"Para vestir tus espacios"},
-    {id:"cuadros",name:"Cuadros y letreros",desc:"Nombres, frases y diseños grabados"},
+    {id:"decoracion",name:"Decoracion",desc:"Para vestir tus espacios"},
+    {id:"cuadros",name:"Cuadros y letreros",desc:"Nombres, frases y disenos grabados"},
     {id:"souvenirs",name:"Souvenirs",desc:"Detalles para tus invitados"},
     {id:"regalos",name:"Regalos",desc:"Piezas personalizadas con amor"}
 ];
@@ -427,7 +388,6 @@ const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;"
 const fmt=n=>"$"+Number(n||0).toLocaleString("es-AR");
 const uid=()=>"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
-/* ---------- PERSISTENCIA ---------- */
 async function load(key,fb){
     if(sb){
         try{
@@ -444,20 +404,11 @@ async function save(key,val){
         try{
             const {error}=await sb.from(TBL).upsert({key,value:val});
             if(error) throw error;
-            console.log("[save] ✓ Supabase OK:", key);
             return true;
-        }catch(e){
-            console.warn("[save] ✗ Supabase falló para",key,"→ usando localStorage. Error:",e?.message||e);
-        }
+        }catch(e){}
     }
-    try{
-        localStorage.setItem("saltadeco_"+key,JSON.stringify(val));
-        console.log("[save] ✓ localStorage OK:", key);
-        return true;
-    }catch(e){
-        console.error("[save] ✗ localStorage también falló:", e);
-        return false;
-    }
+    try{ localStorage.setItem("saltadeco_"+key,JSON.stringify(val)); return true; }
+    catch(e){ return false; }
 }
 async function upImg(d){
     if(!sb || !d.startsWith("data:")) return d;
@@ -468,29 +419,22 @@ async function upImg(d){
     return sb.storage.from(BUCKET).getPublicUrl(p).data.publicUrl;
 }
 function ph(t){
-    const s='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">'
-        +'<rect width="600" height="600" fill="#f1e9d4"/>'
-        +'<path d="M0 0H330Q300 160 150 230Q60 270 0 260Z" fill="#6b8a63" opacity=".55"/>'
-        +'<path d="M600 600H300Q330 460 450 400Q540 360 600 380Z" fill="#d4a93c" opacity=".5"/>'
-        +'<g fill="none" stroke="#d4a93c" stroke-width="3"><ellipse cx="300" cy="230" rx="14" ry="26"/><ellipse cx="300" cy="282" rx="14" ry="26"/><ellipse cx="274" cy="256" rx="26" ry="14"/><ellipse cx="326" cy="256" rx="26" ry="14"/><circle cx="300" cy="256" r="8"/></g>'
-        +'<text x="300" y="370" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="34" fill="#44593f">'+esc(t)+'</text>'
-        +'</svg>';
+    const s='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="600" height="600" fill="#f1e9d4"/><path d="M0 0H330Q300 160 150 230Q60 270 0 260Z" fill="#6b8a63" opacity=".55"/><path d="M600 600H300Q330 460 450 400Q540 360 600 380Z" fill="#d4a93c" opacity=".5"/><text x="300" y="370" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="34" fill="#44593f">'+esc(t)+'</text></svg>';
     return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(s);
 }
 const defProds=()=>[
-    ["decoracion","Guirnalda Floral","Corte láser en MDF · detalle calado",9500],
-    ["cuadros","Cuadro con Nombre","Grabado en madera · tamaño a elección",14000],
-    ["souvenirs","Souvenir Personalizado","Ideal para cumpleaños y casamientos",1800],
-    ["regalos","Caja de Regalo Grabada","Con mensaje y diseño a medida",12000],
-    ["decoracion","Cartel de Bienvenida","Letras caladas · listo para colgar",16500]
+    ["decoracion","Guirnalda Floral","Corte laser en MDF",9500],
+    ["cuadros","Cuadro con Nombre","Grabado en madera",14000],
+    ["souvenirs","Souvenir Personalizado","Para eventos",1800],
+    ["regalos","Caja de Regalo","Con mensaje a medida",12000],
+    ["decoracion","Cartel de Bienvenida","Letras caladas",16500]
 ].map((a,i)=>({id:uid(),category:a[0],title:a[1],desc:a[2],price:a[3],img:ph(a[1]),sort:i}));
 
 const sorted=c=>prods.filter(p=>p.category===c).sort((a,b)=>(a.sort||0)-(b.sort||0));
 
-/* ---------- HERO ---------- */
 function heroLayer(url){
     const safe=String(url).replace(/["\\]/g,"\\$&");
-    return "linear-gradient(180deg,rgba(40,55,36,.25) 0%,rgba(40,55,36,.6) 60%,rgba(40,55,36,.85) 100%), url(\""+safe+"\")";
+    return "linear-gradient(180deg,rgba(40,55,36,.25) 0%,rgba(40,55,36,.85) 100%), url(\""+safe+"\")";
 }
 function applyHero(){
     const h=$("hero");
@@ -500,10 +444,9 @@ function applyHero(){
         h.style.backgroundImage=heroLayer(heroData.img);
         h.style.backgroundSize="cover";
         h.style.backgroundPosition=heroData.x+"% "+heroData.y+"%";
-        h.style.backgroundRepeat="no-repeat";
     }else{
         h.classList.remove("has-photo");
-        h.style.backgroundImage="";h.style.backgroundSize="";h.style.backgroundPosition="";h.style.backgroundRepeat="";
+        h.style.backgroundImage="";
     }
 }
 function updateHeroPrevAspect(){
@@ -522,21 +465,20 @@ function updateHeroPreview(){
         wrap.style.backgroundImage=heroLayer(heroData.img);
         wrap.style.backgroundSize="cover";
         wrap.style.backgroundPosition=heroData.x+"% "+heroData.y+"%";
-        hint.classList.remove("hide");
-        btn.classList.add("has");
-        txt.textContent="Cambiar foto";
-        clr.style.display="";
+        if(hint) hint.classList.remove("hide");
+        if(btn) btn.classList.add("has");
+        if(txt) txt.textContent="Cambiar foto";
+        if(clr) clr.style.display="";
     }else{
         wrap.classList.remove("has");
         wrap.style.backgroundImage="";
-        hint.classList.add("hide");
-        btn.classList.remove("has");
-        txt.textContent="Subir foto";
-        clr.style.display="none";
+        if(hint) hint.classList.add("hide");
+        if(btn) btn.classList.remove("has");
+        if(txt) txt.textContent="Subir foto";
+        if(clr) clr.style.display="none";
     }
 }
 
-/* ---------- CARRITO ---------- */
 function loadCart(){
     try{
         const a=JSON.parse(localStorage.getItem(LS_CART));
@@ -561,44 +503,21 @@ function qty(id,d){
 function renderCart(){
     cart=cart.filter(i=>prods.some(p=>p.id===i.id));
     const q=cQty();
-      const cc=$("cartCount");
-    if(cc.textContent!==String(q)){ cc.classList.remove("bump"); void cc.offsetWidth; cc.classList.add("bump"); }
-    cc.textContent=q;
+    $("cartCount").textContent=q;
     $("cq").textContent=q;
     $("cartTotal").textContent=fmt(cTot());
     $("clearBtn").style.display=q?"":"none";
     $("items").innerHTML=cart.length?cart.map(i=>{
         const p=prods.find(x=>x.id===i.id);
-        return `<div class="ci">
-            <img src="${esc(p.img)}" alt="">
-            <div class="ci-info">
-                <b>${esc(p.title)}</b>
-                <span class="ci-cat">${fmt(p.price)}</span>
-                <div class="q">
-                    <button type="button" data-q="-1" data-id="${esc(p.id)}" aria-label="Restar">−</button>
-                    <span>${i.qty}</span>
-                    <button type="button" data-q="1" data-id="${esc(p.id)}" aria-label="Sumar">+</button>
-                </div>
-            </div>
-            <div class="ci-side"><b>${fmt(p.price*i.qty)}</b></div>
-        </div>`;
-    }).join(""):'<div class="empty" style="margin-top:40px">Tu carrito está vacío</div>';
+        return `<div class="ci"><img src="${esc(p.img)}" alt=""><div class="ci-info"><b>${esc(p.title)}</b><span class="ci-cat">${fmt(p.price)}</span><div class="q"><button type="button" data-q="-1" data-id="${esc(p.id)}">-</button><span>${i.qty}</span><button type="button" data-q="1" data-id="${esc(p.id)}">+</button></div></div><div class="ci-side"><b>${fmt(p.price*i.qty)}</b></div></div>`;
+    }).join(""):'<div class="empty" style="margin-top:40px">Tu carrito esta vacio</div>';
 }
 
-/* ---------- TIENDA ---------- */
 const PAGE_SIZE=12;
 let storeQuery="", storeSort="relevance", storeShown={};
 
 function productCard(p){
-    return `<article class="card" data-id="${esc(p.id)}">
-        <div class="cm">
-            <img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy">
-            <button class="add" data-add="${esc(p.id)}">Agregar al carrito</button>
-        </div>
-        <h3>${esc(p.title)}</h3>
-        ${p.desc?`<p>${esc(p.desc)}</p>`:""}
-        <div class="pr">${fmt(p.price)}<span>ARS</span></div>
-    </article>`;
+    return `<article class="card" data-id="${esc(p.id)}"><div class="cm"><img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy"><button class="add" data-add="${esc(p.id)}">Agregar al carrito</button></div><h3>${esc(p.title)}</h3>${p.desc?`<p>${esc(p.desc)}</p>`:""}<div class="pr">${fmt(p.price)}<span>ARS</span></div></article>`;
 }
 function filterList(list){
     const q=storeQuery.trim().toLowerCase();
@@ -611,44 +530,21 @@ function filterList(list){
 function renderStore(){
     $("tiles").innerHTML=cats.map(c=>{
         const f=sorted(c.id)[0];
-        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${f?esc(f.img):""}')">
-            <div><span>${esc(c.name)}</span><i>VER TODO</i></div>
-        </a>`;
+        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${f?esc(f.img):""}')"><div><span>${esc(c.name)}</span><i>VER TODO</i></div></a>`;
     }).join("");
-
-    $("store").innerHTML=
-      `<div class="sec" style="padding-bottom:0">
-        <div class="store-tools">
-          <input id="storeSearch" type="search" placeholder="Buscar producto…" value="${esc(storeQuery)}" aria-label="Buscar">
-          <select id="storeSort" aria-label="Ordenar">
-            <option value="relevance">Orden original</option>
-            <option value="price-asc">Precio ↑</option>
-            <option value="price-desc">Precio ↓</option>
-            <option value="name">Nombre A-Z</option>
-          </select>
-        </div>
-      </div>` +
-      cats.map(c=>{
+    $("store").innerHTML=`<div class="sec" style="padding-bottom:0"><div class="store-tools"><input id="storeSearch" type="search" placeholder="Buscar producto..." value="${esc(storeQuery)}"><select id="storeSort"><option value="relevance">Orden original</option><option value="price-asc">Precio mayor</option><option value="price-desc">Precio menor</option><option value="name">Nombre A-Z</option></select></div></div>`+cats.map(c=>{
         const l=filterList(sorted(c.id));
         const shown=storeShown[c.id]||PAGE_SIZE;
         const slice=l.slice(0,shown);
         const more=l.length>slice.length;
-        return `<section class="sec" id="cat-${esc(c.id)}">
-            <div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div>
-            <div class="grid">${slice.length?slice.map(productCard).join(""):'<div class="empty">Estamos preparando esta colección ✦</div>'}</div>
-            ${more?`<div class="load-more-wrap"><button class="btn o" data-more="${esc(c.id)}">Ver más (${l.length-slice.length})</button></div>`:""}
-        </section>`;
-      }).join("");
-
+        return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="grid">${slice.length?slice.map(productCard).join(""):'<div class="empty">Proximamente</div>'}</div></section>`;
+    }).join("");
     const si=$("storeSearch");
-    if(si){
-        si.oninput=e=>{storeQuery=e.target.value;storeShown={};renderStore();const f=$("storeSearch");if(f){f.focus();f.setSelectionRange(f.value.length,f.value.length);}};
-    }
+    if(si){ si.oninput=e=>{storeQuery=e.target.value;storeShown={};renderStore();const f=$("storeSearch");if(f){f.focus();f.setSelectionRange(f.value.length,f.value.length);}}; }
     const so=$("storeSort");
     if(so){ so.value=storeSort; so.onchange=e=>{storeSort=e.target.value;renderStore();}; }
 }
 
-/* ---------- UI HELPERS ---------- */
 const toast=m=>{
     const e=$("toast");
     e.textContent=m;
@@ -666,7 +562,6 @@ function closeCart(){$("ov").classList.remove("on");$("drawer").classList.remove
 const mo=id=>{$(id).classList.add("on");lock(1)};
 const mc=id=>{$(id).classList.remove("on");lock(0)};
 
-/* ---------- CONFIRM MODAL ---------- */
 function confirmDo(opts){
     return new Promise(res=>{
         cmResolver=res;
@@ -684,7 +579,6 @@ function closeConfirm(v){
     if(r) r(v);
 }
 
-/* ---------- LIGHTBOX ---------- */
 function openLb(id){
     const p=prods.find(x=>x.id===id);if(!p)return;
     cur=p;
@@ -698,84 +592,34 @@ function openLb(id){
     mo("lbm");
 }
 
-/* ---------- PEDIDO ---------- */
 function openOrder(){
-    if(!cart.length) return toast("Agregá una pieza primero");
-    $("osum").innerHTML=cart.map(i=>{
-        const p=prods.find(x=>x.id===i.id);
-        return `<div class="row">
-            <img src="${esc(p.img)}" alt="">
-            <span>${esc(p.title)} × ${i.qty}</span>
-            <b>${fmt(p.price*i.qty)}</b>
-        </div>`;
-    }).join("")
-    +`<div class="row" style="border:none;border-top:2px solid var(--gold);border-radius:0;margin-top:8px;background:transparent">
-        <span><b>TOTAL</b></span><b>${fmt(cTot())}</b>
-    </div>`;
+    if(!cart.length) return toast("Agrega un producto primero");
+    $("osum").innerHTML=cart.map(i=>{const p=prods.find(x=>x.id===i.id);return `<div class="row"><img src="${esc(p.img)}" alt=""><span>${esc(p.title)} x ${i.qty}</span><b>${fmt(p.price*i.qty)}</b></div>`;}).join("")+`<div class="row" style="border:none;border-top:2px solid var(--gold);background:transparent"><span><b>TOTAL</b></span><b>${fmt(cTot())}</b></div>`;
     mo("om");
 }
 async function send(){
     const n=$("oName").value.trim(), c=$("oContact").value.trim();
     if(!n) return toast("Falta tu nombre");
     if(!c) return toast("Falta un contacto");
-
-    const o={
-        id:"ord_"+Date.now().toString(36),
-        items:cart.map(i=>{
-            const p=prods.find(x=>x.id===i.id);
-            return {title:p.title,category:p.category,qty:i.qty,unit:p.price};
-        }),
-        total:cTot(),
-        name:n,
-        contact:c,
-        note:$("oNote").value.trim(),
-        status:"nuevo",
-        created_at:new Date().toISOString()
-    };
-
+    const o={id:"ord_"+Date.now().toString(36),items:cart.map(i=>{const p=prods.find(x=>x.id===i.id);return{title:p.title,category:p.category,qty:i.qty,unit:p.price};}),total:cTot(),name:n,contact:c,note:$("oNote").value.trim(),status:"nuevo",created_at:new Date().toISOString()};
     $("oSend").disabled=true;
     orders.unshift(o);
     const ok=await save(K.o,orders);
     $("oSend").disabled=false;
     if(!ok) return toast("Error al enviar");
-
     cart=[];sc();renderCart();
     ["oName","oContact","oNote"].forEach(i=>$(i).value="");
     mc("om");
-    toast("¡Pedido enviado!");
+    toast("Pedido enviado");
 }
 
-/* ═══════════ ADMIN ═══════════ */
 const logged=()=>{try{return localStorage.getItem(LS_S)==="1"}catch(e){return false}};
 
 function openAdmin(){
-    console.log("🔵 openAdmin() ejecutándose");
-    const am = document.getElementById("am");
-    if(!am){ console.error("❌ #am no existe"); return; }
-    
-    // FORZAR VISIBILIDAD con estilos inline (ignora CSS roto)
-    am.style.display = "flex";
-    am.style.position = "fixed";
-    am.style.inset = "0";
-    am.style.zIndex = "9999";
-    am.style.background = "rgba(50,64,46,.85)";
-    am.style.alignItems = "center";
-    am.style.justifyContent = "center";
-    am.style.padding = "16px";
-    am.classList.add("on");
-    document.body.style.overflow = "hidden";
-    
-    const isIn = logged();
-    console.log("👤 Logueado:", isIn, "| cats:", cats.length, "prods:", prods.length);
-    
-    const lf = document.getElementById("loginForm");
-    const pn = document.getElementById("panel");
-    if(lf) lf.style.display = isIn ? "none" : "";
-    if(pn) pn.style.display = isIn ? "" : "none";
-    
-    if(isIn){
-        try { showCats(); } catch(err){ console.error("showCats:", err); }
-    }
+    mo("am");
+    $("loginForm").style.display=logged()?"none":"";
+    $("panel").style.display=logged()?"":"none";
+    if(logged()) showCats();
 }
 function showCats(){
     adminCat=null;
@@ -794,37 +638,19 @@ function showItems(cat){
 function renderCats(){
     $("catList").innerHTML=cats.map(c=>{
         const n=prods.filter(p=>p.category===c.id).length;
-        return `<div class="acat">
-            <button type="button" class="acat-open" data-vc="${esc(c.id)}">
-                <strong>${esc(c.name)}</strong>
-                <small>${esc(c.id)}</small>
-                <em>${n} producto${n===1?"":"s"}</em>
-            </button>
-            <button type="button" class="acat-x" data-dc="${esc(c.id)}" aria-label="Eliminar categoría">✕</button>
-        </div>`;
+        return `<div class="acat"><button type="button" class="acat-open" data-vc="${esc(c.id)}"><strong>${esc(c.name)}</strong><small>${esc(c.id)}</small><em>${n} producto${n===1?"":"s"}</em></button><button type="button" class="acat-x" data-dc="${esc(c.id)}">X</button></div>`;
     }).join("");
 }
 let adminQuery="";
 function renderItems(){
     const c=cats.find(x=>x.id===adminCat);
     $("adminCatTitle").textContent=c?c.name:"";
-       $("pc").innerHTML=cats.map(x=>{
-        const n=prods.filter(p=>p.category===x.id).length;
-        return `<option value="${esc(x.id)}"${x.id===adminCat?" selected":""}>${esc(x.name)} (${n})</option>`;
-    }).join("");
-    const l=sorted(adminCat).filter(p=>adminQuery?((p.title+" "+(p.desc||"")).toLowerCase().includes(adminQuery.toLowerCase())):true);
-    const bar=`<div class="acat-new" style="margin-bottom:10px"><input id="adminSearch" placeholder="Buscar en esta categoría…" value="${esc(adminQuery)}"></div>`;
-    $("pList").innerHTML=bar+(l.length?l.map((p,i)=>{
+    $("pc").innerHTML=cats.map(x=>`<option value="${esc(x.id)}"${x.id===adminCat?" selected":""}>${esc(x.name)}</option>`).join("");
+    const l=sorted(adminCat);
+    $("pList").innerHTML=l.length?l.map((p,i)=>{
         const sel=p.id===editId?" selected":"";
-        return `<div class="row${sel}">
-            <img src="${esc(p.img)}" alt="" loading="lazy" onerror="this.style.display='none'">
-            <span class="ri"><b>${esc(p.title)}</b><small>${fmt(p.price)}</small></span>
-            <button type="button" data-up="${esc(p.id)}"${i?"":" disabled"} aria-label="Subir">↑</button>
-            <button type="button" data-dn="${esc(p.id)}"${i<l.length-1?"":" disabled"} aria-label="Bajar">↓</button>
-            <button type="button" data-ed="${esc(p.id)}">Editar</button>
-            <button type="button" data-dp="${esc(p.id)}" aria-label="Eliminar">✕</button>
-        </div>`;
-    }).join(""):'<div class="empty">Sin productos todavía — agregá el primero</div>';
+        return `<div class="row${sel}"><img src="${esc(p.img)}" alt="" loading="lazy"><span class="ri"><b>${esc(p.title)}</b><small>${fmt(p.price)}</small></span><button type="button" data-up="${esc(p.id)}"${i?"":" disabled"}>^</button><button type="button" data-dn="${esc(p.id)}"${i<l.length-1?"":" disabled"}>v</button><button type="button" data-ed="${esc(p.id)}">Editar</button><button type="button" data-dp="${esc(p.id)}">X</button></div>`;
+    }).join(""):'<div class="empty">Sin productos</div>';
 }
 function resetForm(){
     editId=null;img="";
@@ -855,7 +681,7 @@ function compress(f,maxW){
                 x.drawImage(i,0,0,w,h);
                 res(c.toDataURL("image/jpeg",.85));
             };
-            i.onerror=()=>rej(new Error("Imagen inválida"));
+            i.onerror=()=>rej(new Error("Imagen invalida"));
             i.src=e.target.result;
         };
         r.onerror=rej;
@@ -867,37 +693,29 @@ async function saveProd(ev){
     const t=$("pt").value.trim();
     const pr=parseInt($("pp").value,10);
     const cat=$("pc").value;
-    if(!t||!img||!(pr>=0)) return toast("Completá título, imagen y precio");
-
+    if(!t||!img||!(pr>=0)) return toast("Completa titulo, imagen y precio");
     const wasEdit=!!editId;
     const b=$("psave");
-    b.disabled=true; b.textContent="Guardando…";
-
+    b.disabled=true;b.textContent="Guardando...";
     let f=img;
     try{ f=await upImg(img); }
-    catch(e){ b.disabled=false; b.textContent="Guardar"; return toast("Error subiendo imagen"); }
-
+    catch(e){ b.disabled=false;b.textContent="Guardar";return toast("Error subiendo imagen"); }
     if(editId){
         const p=prods.find(x=>x.id===editId);
         Object.assign(p,{title:t,desc:$("pd").value.trim(),price:pr,img:f,category:cat});
     }else{
-        const existingSorts = prods.filter(p=>p.category===cat).map(p=>p.sort||0);
-const nextSort = existingSorts.length ? Math.max(...existingSorts)+1 : 0;
-prods.push({
-    id:uid(),category:cat,title:t,desc:$("pd").value.trim(),price:pr,img:f,
-    sort: nextSort
-});
+        const existingSorts=prods.filter(p=>p.category===cat).map(p=>p.sort||0);
+        const nextSort=existingSorts.length?Math.max(...existingSorts)+1:0;
+        prods.push({id:uid(),category:cat,title:t,desc:$("pd").value.trim(),price:pr,img:f,sort:nextSort});
     }
     const ok=await save(K.p,prods);
-    b.disabled=false; b.textContent="Guardar";
+    b.disabled=false;b.textContent="Guardar";
     if(!ok) return toast("Error al guardar");
-
     adminCat=cat;
     resetForm();renderStore();renderCart();
     toast(wasEdit?"Producto actualizado":"Producto guardado");
 }
 
-/* HERO DRAG */
 function heroGetXY(e){
     if(e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
     return {x:e.clientX, y:e.clientY};
@@ -927,25 +745,21 @@ async function heroEnd(){
     await save(K.h,heroData);
 }
 
-/* ADMIN CLICK */
 async function adminClick(e){
     const t=e.target.closest("button"); if(!t) return;
     const d=t.dataset;
-
     if(d.vc){ showItems(d.vc); }
     else if(d.dc){
         const c=cats.find(x=>x.id===d.dc); if(!c) return;
         const n=prods.filter(p=>p.category===d.dc).length;
-        const message = n>0
-            ? '¿Eliminar la categoría <b>'+esc(c.name)+'</b> y sus <b>'+n+' producto'+(n===1?'':'s')+'</b>?<br><br>Esta acción no se puede deshacer.'
-            : '¿Eliminar la categoría <b>'+esc(c.name)+'</b>?';
-        const ok=await confirmDo({title:"Eliminar categoría",message,confirm:"Eliminar"});
+        const message="Eliminar la categoria <b>"+esc(c.name)+"</b>"+(n?" y sus <b>"+n+"</b> producto"+(n===1?"":"s"):"")+"?";
+        const ok=await confirmDo({title:"Eliminar categoria",message:message,confirm:"Eliminar"});
         if(!ok) return;
         cats=cats.filter(x=>x.id!==d.dc);
         prods=prods.filter(p=>p.category!==d.dc);
-        await Promise.all([save(K.c,cats), save(K.p,prods)]);
+        await Promise.all([save(K.c,cats),save(K.p,prods)]);
         renderCats();renderStore();renderCart();
-        toast("Categoría eliminada");
+        toast("Categoria eliminada");
     }
     else if(d.up||d.dn){
         const id=d.up||d.dn;
@@ -977,11 +791,7 @@ async function adminClick(e){
     }
     else if(d.dp){
         const p=prods.find(x=>x.id===d.dp); if(!p) return;
-        const ok=await confirmDo({
-            title:"Eliminar producto",
-            message:'¿Eliminar <b>'+esc(p.title)+'</b>?<br><br>Esta acción no se puede deshacer.',
-            confirm:"Eliminar"
-        });
+        const ok=await confirmDo({title:"Eliminar producto",message:"Eliminar <b>"+esc(p.title)+"</b>?",confirm:"Eliminar"});
         if(!ok) return;
         prods=prods.filter(x=>x.id!==d.dp);
         await save(K.p,prods);
@@ -991,19 +801,15 @@ async function adminClick(e){
     }
 }
 
-/* BIND */
 function bind(){
     $("year").textContent=new Date().getFullYear();
-
     $("cartToggle").onclick=openCart;
     $("cartClose").onclick=closeCart;
     $("ov").onclick=closeCart;
     $("clearBtn").onclick=()=>{cart=[];sc();renderCart()};
     $("orderBtn").onclick=()=>{closeCart();openOrder()};
     $("items").onclick=e=>{const b=e.target.closest("[data-q]");if(b)qty(b.dataset.id,+b.dataset.q)};
-      $("store").onclick=e=>{
-        const m=e.target.closest("[data-more]");
-        if(m){ storeShown[m.dataset.more]=(storeShown[m.dataset.more]||PAGE_SIZE)+PAGE_SIZE; renderStore(); return; }
+    $("store").onclick=e=>{
         const a=e.target.closest("[data-add]");
         if(a){e.stopPropagation();return add(a.dataset.add)}
         const c=e.target.closest(".card");
@@ -1011,47 +817,18 @@ function bind(){
     };
     $("lbAdd").onclick=()=>{if(cur){add(cur.id);mc("lbm")}};
     $("oSend").onclick=send;
-
-    // Función central para cerrar cualquier modal (limpia estilos inline también)
-function closeModalEl(el){
-    if(!el) return;
-    el.classList.remove("on");
-    el.style.display = "";           // ← limpia el display:flex inline
-    el.style.position = "";          // ← limpia el resto
-    el.style.inset = "";
-    el.style.zIndex = "";
-    el.style.background = "";
-    el.style.alignItems = "";
-    el.style.justifyContent = "";
-    el.style.padding = "";
-    lock(0);
-}
-
-document.querySelectorAll("[data-close]").forEach(b=>{
-    b.onclick=()=>closeModalEl(b.closest(".modal"));
-});
-
-document.querySelectorAll(".modal").forEach(m=>{
-    m.onclick=e=>{
-        if(e.target!==m) return;
-        if(m.id==="cm"){ closeConfirm(false); return; }
-        closeModalEl(m);
-    };
-});
-
-    // Admin: usar addEventListener para que NO se pise con otras asignaciones
-    const adminBtn = $("adminTrigger");
-    if(adminBtn){
-        adminBtn.addEventListener("click", function(e){
-            e.preventDefault();
-            console.log("🟢 ADMIN CLICKEADO");
-            openAdmin();
-        });
-        console.log("✅ Admin listener instalado");
-    } else {
-        console.error("❌ #adminTrigger NO EXISTE en el DOM");
-    }
-
+    document.querySelectorAll("[data-close]").forEach(b=>{
+        b.onclick=()=>{b.closest(".modal").classList.remove("on");lock(0)};
+    });
+    document.querySelectorAll(".modal").forEach(m=>{
+        m.onclick=e=>{
+            if(e.target!==m) return;
+            if(m.id==="cm"){ closeConfirm(false); return; }
+            m.classList.remove("on");
+            lock(0);
+        };
+    });
+    $("adminTrigger").onclick=openAdmin;
     $("loginForm").onsubmit=e=>{
         e.preventDefault();
         if($("lu").value.trim().toUpperCase()===AU && $("lp").value.trim()===AP){
@@ -1063,24 +840,21 @@ document.querySelectorAll(".modal").forEach(m=>{
             $("lp").focus();
         }
     };
-
     $("catForm").onsubmit=async e=>{
         e.preventDefault();
         const n=$("cn").value.trim();
         const id=n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");
-        if(!id||cats.some(c=>c.id===id)) return toast("Nombre inválido o repetido");
+        if(!id||cats.some(c=>c.id===id)) return toast("Nombre invalido o repetido");
         cats.push({id,name:n,desc:$("cd").value.trim()});
         await save(K.c,cats);
         $("catForm").reset();
         renderCats();renderStore();
-        toast("Categoría creada");
+        toast("Categoria creada");
     };
-
     $("panel").onclick=adminClick;
     $("pf").onsubmit=saveProd;
     $("pcancel").onclick=resetForm;
     $("backToCatsBtn").onclick=showCats;
-
     $("pFile").onchange=e=>{
         const f=e.target.files[0];
         if(!f) return;
@@ -1092,13 +866,12 @@ document.querySelectorAll(".modal").forEach(m=>{
             $("pUploadText").textContent="Cambiar imagen";
         }).catch(x=>toast(x.message));
     };
-
     $("heroFile").onchange=e=>{
         const f=e.target.files[0];
         if(!f) return;
-        toast("Procesando foto…");
+        toast("Procesando foto...");
         compress(f,1800).then(async d=>{
-            $("heroUploadText").textContent="Subiendo…";
+            $("heroUploadText").textContent="Subiendo...";
             let url=d;
             try{ url=await upImg(d); }
             catch(err){ toast("Error subiendo foto"); updateHeroPreview(); return; }
@@ -1106,24 +879,18 @@ document.querySelectorAll(".modal").forEach(m=>{
             const ok=await save(K.h,heroData);
             if(!ok){ toast("Error al guardar foto"); updateHeroPreview(); return; }
             applyHero();updateHeroPreview();
-            toast("Foto de portada actualizada");
+            toast("Foto actualizada");
         }).catch(err=>{ toast(err.message||"Error"); updateHeroPreview(); });
     };
-
     $("heroClear").onclick=async()=>{
         if(!heroData.img) return;
-        const ok=await confirmDo({
-            title:"Quitar foto de portada",
-            message:'¿Quitar la foto y volver al fondo floral por defecto?',
-            confirm:"Quitar"
-        });
+        const ok=await confirmDo({title:"Quitar foto",message:"Quitar la foto de portada?",confirm:"Quitar"});
         if(!ok) return;
         heroData={img:"",x:50,y:50};
         await save(K.h,heroData);
         applyHero();updateHeroPreview();
         toast("Foto quitada");
     };
-
     const wrap=$("heroPrevWrap");
     if(wrap){
         wrap.addEventListener("mousedown",heroStart);
@@ -1134,10 +901,8 @@ document.querySelectorAll(".modal").forEach(m=>{
         window.addEventListener("touchend",heroEnd);
         window.addEventListener("touchcancel",heroEnd);
     }
-
-     $("cmOk").onclick=()=>closeConfirm(true);
+    $("cmOk").onclick=()=>closeConfirm(true);
     $("cmCancel").onclick=()=>closeConfirm(false);
-
     document.addEventListener("input",e=>{
         if(e.target && e.target.id==="adminSearch"){
             adminQuery=e.target.value;
@@ -1150,57 +915,33 @@ document.querySelectorAll(".modal").forEach(m=>{
     window.addEventListener("resize",()=>{
         if($("am").classList.contains("on")) updateHeroPrevAspect();
     });
-
     document.onkeydown=e=>{
-    if(e.key!=="Escape") return;
-    if($("cm").classList.contains("on")){ closeConfirm(false); return; }
-    closeCart();
-    document.querySelectorAll(".modal").forEach(m=>{
-        m.classList.remove("on");
-        m.style.display = "";
-        m.style.position = "";
-        m.style.inset = "";
-        m.style.zIndex = "";
-        m.style.background = "";
-        m.style.alignItems = "";
-        m.style.justifyContent = "";
-        m.style.padding = "";
-    });
-    lock(0);
-};
+        if(e.key!=="Escape") return;
+        if($("cm").classList.contains("on")){ closeConfirm(false); return; }
+        closeCart();
+        document.querySelectorAll(".modal.on").forEach(m=>m.classList.remove("on"));
+        lock(0);
+    };
 }
 
-/* INIT */
 (async function init(){
-    // 1. BIND PRIMERO
-    try { bind(); } catch(err){ console.error("[init] bind:", err); }
-
-    // 2. Datos
-    cart = loadCart();
-
-    let c=null, p=null, o=null, h=null;
-    try { c = await load(K.c,null); } catch(err){ console.warn("load cats:", err); }
-    try { p = await load(K.p,null); } catch(err){ console.warn("load prods:", err); }
-    try { o = await load(K.o,null); } catch(err){ console.warn("load orders:", err); }
-    try { h = await load(K.h,null); } catch(err){ console.warn("load hero:", err); }
-
-    cats   = (Array.isArray(c) && c.length) ? c : DEF.map(x=>({...x}));
-    prods  = (Array.isArray(p) && p.length) ? p : defProds();
-    orders = Array.isArray(o) ? o : [];
-
-    if(typeof h === "string"){ heroData = { img: h, x: 50, y: 50 }; }
-    else if(h && typeof h === "object"){
-        heroData = { img: typeof h.img === "string" ? h.img : "", x: h.x||50, y: h.y||50 };
+    cart=loadCart();
+    const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
+    cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
+    prods=Array.isArray(p)&&p.length?p:defProds();
+    orders=Array.isArray(o)?o:[];
+    if(typeof h==="string"){
+        heroData={img:h,x:50,y:50};
+    }else if(h && typeof h==="object"){
+        heroData={img:typeof h.img==="string"?h.img:"",x:typeof h.x==="number"?h.x:50,y:typeof h.y==="number"?h.y:50};
     }
-
-    // 3. Render — cada uno protegido
-    try { applyHero(); } catch(err){ console.warn("applyHero:", err); }
-    try { updateHeroPrevAspect(); } catch(err){ console.warn("aspect:", err); }
-    try { renderStore(); } catch(err){ console.error("renderStore:", err); }
-    try { renderCart(); } catch(err){ console.error("renderCart:", err); }
-
-    console.log("[init] ✓ listo — cats:", cats.length, "prods:", prods.length);
+    bind();
+    applyHero();
+    updateHeroPrevAspect();
+    renderStore();
+    renderCart();
 })();
+
 })();
 </script>
 </body>
