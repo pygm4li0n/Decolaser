@@ -680,10 +680,25 @@ function renderStore(){
                // En mobile mostramos 4 (2x2), en desktop 5
         const isMobile = window.innerWidth <= 768;
         const minCards = isMobile ? 4 : 5;
-        const realCards = slice.map(productCard).join("");
+             // 1) Rellenar hasta 4 (mobile) / 5 (desktop) con placeholders ANTES de reordenar
         const needed = Math.max(0, minCards - slice.length);
-        const placeholders = Array(needed).fill(dummyCard).join("");
-        const gridContent = realCards + placeholders;
+        const combined = slice.concat(Array(needed).fill(null));
+
+        // 2) Reordenar solo en mobile (column-flow: 2 filas → 1,2 arriba / 3,4 abajo)
+        let gridContent;
+        if (isMobile) {
+            const reordered = [];
+            for (let i = 0; i < combined.length; i += 4) {
+                if (i   < combined.length) reordered.push(combined[i]);
+                if (i+2 < combined.length) reordered.push(combined[i+2]);
+                if (i+1 < combined.length) reordered.push(combined[i+1]);
+                if (i+3 < combined.length) reordered.push(combined[i+3]);
+            }
+            gridContent = reordered.map(x => x ? productCard(x) : dummyCard).join("");
+        } else {
+            // Desktop: grid normal (row-flow), orden natural
+            gridContent = combined.map(x => x ? productCard(x) : dummyCard).join("");
+        }
         return `<section class="sec" id="cat-${esc(c.id)}"><div class="sh"><h2>${esc(c.name)}</h2><p>${esc(c.desc||"")}</p></div><div class="scroll-wrapper"><button class="scroll-arrow left hidden" aria-label="Anterior" data-dir="-1">‹</button><div class="grid">${gridContent}</div><button class="scroll-arrow right hidden" aria-label="Siguiente" data-dir="1">›</button></div></section>`;
     }).join("");
 
