@@ -67,10 +67,20 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 40%, rgba(40,55,36,.3) 100%);pointer-events:none;transition:.3s}
 .tile:hover::after{background:linear-gradient(180deg, transparent 40%, rgba(40,55,36,.6) 100%)}
 .tile.placeholder::after{display:none}
-.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);padding:clamp(56px,9vw,110px) clamp(16px,4vw,48px);align-items:center}
-.about h2{font:800 clamp(2.2rem,5vw,3.8rem)/1.05 var(--d);color:var(--sage-d)}
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(24px,5vw,80px);
+    padding:clamp(36px,5vw,72px) clamp(20px,4vw,56px) clamp(24px,3.5vw,44px);
+    align-items:center;
+    background:linear-gradient(135deg, rgba(93,130,85,.08), rgba(217,167,44,.09));
+    border-top:1px solid rgba(217,167,44,.22);
+    border-bottom:1px solid rgba(217,167,44,.22);
+    position:relative;
+}
+.about h2{font:800 clamp(2.2rem,5vw,3.8rem)/1.05 var(--d);color:var(--sage-d);letter-spacing:-.01em}
 .about h2::after{content:"";display:block;width:70px;height:3px;background:var(--gold);margin-top:18px;border-radius:2px}
-.about p{margin-bottom:14px;max-width:58ch}
+.about p{color:var(--ink);font-weight:500;margin-bottom:14px;max-width:58ch;line-height:1.7;font-size:.98rem}
 .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;padding:0 clamp(16px,4vw,48px) 20px}
 .feat div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 22px;text-align:center;transition:.25s}
 .feat div:hover{border-color:var(--gold);transform:translateY(-3px)}
@@ -78,6 +88,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .feat b{display:block;font:700 1.15rem var(--d);color:var(--sage-d);margin-bottom:4px}
 .feat span{display:block;color:var(--mut);font-size:.88rem}
 .sec{padding:clamp(40px,6vw,76px) clamp(16px,4vw,48px) 20px}
+#store > .sec:first-child{padding-top:clamp(22px,3vw,36px)}
 .sh{text-align:center;margin-bottom:30px}
 .sh h2{font:800 clamp(2rem,4.5vw,3.2rem)/1.1 var(--d);color:var(--sage-d)}
 .sh h2::before{content:"*";display:block;color:var(--gold);font-size:.9rem;margin-bottom:6px}
@@ -92,7 +103,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .scroll-wrapper{position:relative}
 .scroll-arrow{display:none}
 @media(max-width:768px){
-    /* Categorías forzadas a 2x2 sin desbordar */
+      /* Categorías forzadas a 2x2 sin desbordar */
     .tiles {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
@@ -101,6 +112,10 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
     }
     .tile {
         aspect-ratio: 1;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 0;
     }
 
        /* Grid mobile ≤4 items: 2x2 fijo, SIN slide */
@@ -272,7 +287,7 @@ footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-t
 #cm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #cm .btn.k{background:#b5442f;border-color:#b5442f}
 @media(max-width:900px){.nav{display:none}header{display:flex;justify-content:space-between}.about,.lb{grid-template-columns:1fr}#am .ag{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){#cm-actions{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr;gap:12px}.tile span{font-size:1.1rem}.tile{padding:15px}footer{flex-direction:column;align-items:flex-start;gap:12px}.foot-right{gap:16px}.foot-social{gap:16px}}
+@media(max-width:560px){#cm-actions{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr;gap:12px}.tile span{font-size:1.1rem}.tile{padding:0}footer{flex-direction:column;align-items:flex-start;gap:12px}.foot-right{gap:16px}.foot-social{gap:16px}}
 
 /* --- EPIC LOADER CSS --- */
 #epic-loader{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at center,#2a3d26 0%,#141c12 100%);display:flex;justify-content:center;align-items:center;transition:opacity .8s ease,visibility .8s;overflow:hidden}
@@ -363,7 +378,7 @@ footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-t
 
 <section class="hero" id="hero">
   <div class="hero-bg-layer active" style="background-image:url('https://i.postimg.cc/hj3RgwdJ/Banner-elegante-de-decoracion-artesanal-(1)-(1)-(1).png')"></div>
-  <div class="hero-bg-layer" style="background-image:url('https://i.postimg.cc/G2SnrNy8/Hacemos-realidad-tu-imaginacion.png')"></div>
+  <div class="hero-bg-layer" style="background-image:url('https://i.postimg.cc/wBTYXdKr/salta.png')"></div>
   
   <div class="hero-content">
     <small>Decoración · Regalos · Souvenirs</small>
