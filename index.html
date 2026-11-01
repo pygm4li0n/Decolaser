@@ -193,9 +193,32 @@ footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-t
 .foot-social a{color:#d6dcc8;padding-bottom:2px;border-bottom:1px solid transparent;transition:.2s}
 .foot-social a:hover{color:#fff;border-color:var(--gold)}
 .foot-copy{font:400 .64rem var(--s);letter-spacing:.14em;text-transform:uppercase;color:#b9c4ab}
-.admin-dot{width:8px;height:8px;border-radius:50%;background:#fffbe9;border:0;padding:0;cursor:pointer;flex-shrink:0;animation:adminPulse 2.6s infinite ease-in-out}
-.admin-dot:hover{background:var(--gold-l)}
-@keyframes adminPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.admin-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#fffbe9;border:0;padding:0;cursor:pointer;flex-shrink:0;
+    animation:adminGlow 2.4s infinite ease-in-out;
+    transition:background .2s;
+}
+.admin-dot:hover{
+    background:var(--gold);
+    animation-duration:1.2s;
+}
+@keyframes adminGlow{
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+        box-shadow:0 0 4px 1px rgba(255,251,233,.9),
+                   0 0 10px 2px rgba(217,167,44,.55),
+                   0 0 18px 4px rgba(217,167,44,.25);
+    }
+    50%{
+        opacity:.85;
+        transform:scale(1.15);
+        box-shadow:0 0 6px 2px rgba(255,251,233,1),
+                   0 0 16px 4px rgba(217,167,44,.85),
+                   0 0 28px 8px rgba(217,167,44,.45);
+    }
+}
 @media(prefers-reduced-motion:reduce){.admin-dot{animation:none}}
 .ov{position:fixed;inset:0;background:rgba(50,64,46,.45);z-index:90;opacity:0;pointer-events:none;transition:.3s}
 .ov.on{opacity:1;pointer-events:auto}
