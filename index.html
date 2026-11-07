@@ -67,12 +67,13 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 .btn.g{background:transparent;color:var(--sage-d);border-color:var(--line);width:100%}
 .btn.g:hover{background:var(--soft);border-color:var(--sage)}
 .btn:disabled{opacity:.45;pointer-events:none}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;padding:clamp(12px,2vw,24px) clamp(12px,2vw,24px);width:100%;margin:0 auto}
-.tile{position:relative;aspect-ratio:4/3;border-radius:16px;background-color:var(--soft);background-position:center;background-size:contain;background-repeat:no-repeat;overflow:hidden;border:2px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s;display:block}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:clamp(16px,3vw,32px) clamp(14px,3vw,32px);width:100%;max-width:1240px;margin:0 auto}
+.tile{position:relative;aspect-ratio:3/4;border-radius:18px;background-color:var(--soft);background-position:center;background-size:cover;background-repeat:no-repeat;overflow:hidden;border:2px solid var(--card);box-shadow:0 8px 24px rgba(79,106,73,.12);transition:.3s;display:block}
 .tile:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
-.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 40%, rgba(40,55,36,.3) 100%);pointer-events:none;transition:.3s}
-.tile:hover::after{background:linear-gradient(180deg, transparent 40%, rgba(40,55,36,.6) 100%)}
-.tile.placeholder::after{display:none}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,55,36,0) 42%,rgba(40,55,36,.78) 100%);pointer-events:none;transition:.3s}
+.tile:hover::after{background:linear-gradient(180deg,rgba(40,55,36,.12) 25%,rgba(40,55,36,.88) 100%)}
+.tile.noimg{background-image:linear-gradient(160deg,#9bb392,#3f5c38)}
+.tile-name{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px 12px 16px;text-align:center;font:700 clamp(.88rem,1.3vw,1.05rem)/1.2 var(--d);color:#fffbe9;letter-spacing:.02em;text-shadow:0 2px 8px rgba(0,0,0,.5)}
 .about{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -111,18 +112,21 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,241,223,.88);backdro
 @media(max-width:768px){
       /* Categorías forzadas a 2x2 sin desbordar */
     .tiles {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 12px;
         width: 100%;
+        max-width: 100%;
     }
-      .tile {
-        aspect-ratio: 4/3;
-        background-size: contain;
+    .tile {
+        aspect-ratio: 3/4;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         padding: 0;
+        border-radius: 14px;
     }
+    .tile-name{font-size:.82rem;padding:10px 6px 12px}
 
        /* Grid mobile ≤4 items: 2x2 fijo, SIN slide */
     .grid:not(.grid-slide){
@@ -297,7 +301,7 @@ footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-t
 .acat-info em{font-style:normal;font-size:.88rem;color:var(--gold);font-weight:600}
 .acat-actions{display:flex;border-top:1px solid var(--line)}
 .acat-x{flex:1;height:42px;display:grid;place-items:center;color:var(--mut);background:var(--bg);transition:.2s;font-size:1.1rem}
-.acat-x:first-child{border-right:1px solid var(--line)}
+.acat-x + .acat-x{border-left:1px solid var(--line)}
 .acat-x[data-ec]:hover{background:var(--soft);color:var(--sage-d)}
 .acat-x[data-dc]:hover{background:#f6dcd4;color:#a3301f}
 #am .ag{display:grid;grid-template-columns:330px 1fr;gap:22px;align-items:start}
@@ -315,8 +319,8 @@ footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-t
 #cmMsg{margin-bottom:22px}#cmMsg b{color:#a3301f}
 #cm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #cm .btn.k{background:#b5442f;border-color:#b5442f}
-@media(max-width:900px){.nav{display:none}header{display:flex;justify-content:space-between}.about,.lb{grid-template-columns:1fr}#am .ag{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){#cm-actions{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr;gap:12px}.tile span{font-size:1.1rem}.tile{padding:0}footer{flex-direction:column;align-items:flex-start;gap:12px}.foot-right{gap:16px}.foot-social{gap:16px}}
+@media(max-width:900px){.nav{display:none}header{display:flex;justify-content:space-between}.about,.lb{grid-template-columns:1fr}#am .ag{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){#cm-actions{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tile-name{font-size:.85rem}.tile{padding:0}footer{flex-direction:column;align-items:flex-start;gap:12px}.foot-right{gap:16px}.foot-social{gap:16px}}
 
 /* --- EPIC LOADER CSS --- */
 #epic-loader{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at center,#2a3d26 0%,#141c12 100%);display:flex;justify-content:center;align-items:center;transition:opacity .8s ease,visibility .8s;overflow:hidden}
@@ -506,7 +510,8 @@ footer{background:linear-gradient(135deg,#3f5c38,#1f2e1c);color:#f3efdc;margin-t
       <h3>Administración</h3>
       <p class="admin-sub">Catálogo · categorías, productos y portada</p>
       <div id="viewCats">
-                <form id="catForm" class="acat-new" style="flex-direction:column">
+        <input type="file" id="quickCatFile" accept="image/*" hidden>
+        <form id="catForm" class="acat-new" style="flex-direction:column">
           <div style="display:flex; gap:8px; width:100%; flex-wrap:wrap">
             <input id="cn" placeholder="Nombre de categoría" required>
             <input id="cd" placeholder="Descripción">
@@ -602,7 +607,7 @@ try{ if(window.supabase) sb=supabase.createClient(URL_,KEY); }catch(e){}
 
 let cats=[], prods=[], orders=[], cart=[];
 let editId=null, img="", adminCat=null, cur=null, tt;
-let editCatId=null, catImg="";
+let editCatId=null, catImg="", quickCatId=null;
 let cmResolver=null;
 
 const $=i=>document.getElementById(i);
@@ -714,15 +719,13 @@ function renderNav(){
 function renderStore(){
     // 1. Placeholders para Categorías (si no tienen foto, usan un lindo gradiente)
       // 1. Placeholders para Categorías (idénticos a los de productos si no tienen foto)
-      $("tiles").innerHTML=cats.map(c=>{
-        if(!c.img) {
-            return `<a class="tile placeholder" href="#cat-${esc(c.id)}" style="background:var(--soft); border:2px dashed var(--line); display:flex; align-items:center; justify-content:center; padding:0;">
-                <div style="font-size:2.8rem;">📦</div>
-            </a>`;
-        }
-        return `<a class="tile" href="#cat-${esc(c.id)}" style="background-image:url('${c.img}')"></a>`;
+    $("tiles").innerHTML = cats.map(c=>{
+        const bg  = c.img ? ` style="background-image:url('${esc(c.img)}')"` : '';
+        const cls = c.img ? 'tile' : 'tile noimg';
+        return `<a class="${cls}" href="#cat-${esc(c.id)}"${bg}>
+            <span class="tile-name">${esc(c.name)}</span>
+        </a>`;
     }).join("");
-
         // 2. Placeholder estilo "decoración": usa el mismo SVG decorativo que los productos reales
     const dummyCard = `<article class="card" style="cursor:default;"><div class="cm"><img src="${ph('Próximamente')}" alt="Próximamente" loading="lazy"></div><h3>Próximamente</h3><p>Nuevos productos en camino</p><div class="pr">$---<span>ARS</span></div></article>`;
     
@@ -893,6 +896,7 @@ function renderCats(){
                 </div>
             </button>
             <div class="acat-actions">
+                <button type="button" class="acat-x" data-ic="${esc(c.id)}" title="Cambiar foto">📷</button>
                 <button type="button" class="acat-x" data-ec="${esc(c.id)}" title="Editar">✎</button>
                 <button type="button" class="acat-x" data-dc="${esc(c.id)}" title="Eliminar">✕</button>
             </div>
@@ -978,6 +982,7 @@ async function saveProd(ev){
 async function adminClick(e){
     const t=e.target.closest("button"); if(!t) return;
     const d=t.dataset;
+        if(d.ic){ quickCatId=d.ic; $("quickCatFile").click(); return; }
     if(d.vc){ showItems(d.vc); }
     else if(d.ec){
         const c=cats.find(x=>x.id===d.ec); if(!c) return;
@@ -1159,6 +1164,21 @@ function bind(){
             $("cPrev").src=d; $("cPrev").style.display="block";
             $("cUpload").classList.add("has"); $("cUploadText").textContent="Cambiar foto";
         }).catch(x=>toast(x.message));
+    };
+    $("quickCatFile").onchange=async e=>{
+        const f=e.target.files[0]; e.target.value="";
+        const id=quickCatId; quickCatId=null;
+        if(!f||!id) return;
+        toast("Subiendo foto...");
+        try{
+            const data=await compress(f,800);
+            const url=await upImg(data);
+            const c=cats.find(x=>x.id===id); if(!c) return;
+            c.img=url;
+            await save(K.c,cats);
+            renderCats(); renderStore();
+            toast("Foto de categoría actualizada");
+        }catch(x){ toast("Error subiendo foto"); }
     };
     $("panel").onclick=adminClick;
     $("pf").onsubmit=saveProd;
